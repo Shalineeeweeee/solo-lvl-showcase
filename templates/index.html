@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Solo Leveling Showcase</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+    </head>
+<body class="dark-theme">
+    <div id="app-container">
+        <header id="main-header">
+            <div class="logo">Solo Leveling</div>
+            <nav id="main-nav">
+                <ul>
+                    <li><a href="#" class="nav-item">Home</a></li>
+                    <li><a href="#" class="nav-item" id="theme-toggle">Theme</a></li>
+                    <li><a href="#" class="nav-item">Characters</a></li>
+                    <li><a href="#" class="nav-item">Sign Up</a></li>
+                    <li><a href="#" class="nav-item">Log In</a></li>
+                </ul>
+            </nav>
+        </header>
+
+        <main id="character-showcase">
+            <div class="character-display">
+                <div class="character-info">
+                    <h2 class="character-title">Shadow Monarch A.K.A</h2>
+                    <h1 class="character-name">SUNG JIN WOO <span class="korean-name">(성진우)</span></h1>
+                    <div class="character-about-placeholder">
+                        <p>This is a placeholder for details about Sung Jin Woo. We'll populate this dynamically or add more static content later.</p>
+                        <div class="social-icons">
+                            <a href="#"><img src="{{ url_for('static', filename='img/icon-twitter.png') }}" alt="Twitter"></a>
+                            <a href="#"><img src="{{ url_for('static', filename='img/icon-instagram.png') }}" alt="Instagram"></a>
+                            </div>
+                    </div>
+                </div>
+                <div class="character-image-container">
+                    <img id="character-main-image" src="{{ url_for('static', filename='img/sung-jin-woo-main.png') }}" alt="Sung Jin Woo">
+                </div>
+                <div class="media-controls">
+                    <button class="play-pause">play</button>
+                    <div class="progress-bar"></div>
+                    <button class="volume">house</button>
+                </div>
+            </div>
+
+            <aside id="about-section">
+                <h3>ABOUT</h3>
+                <p>This section will contain more in-depth information or links about the character or the Solo Leveling series.</p>
+                </aside>
+        </main>
+
+        <footer id="main-footer">
+            <p>kentziex.</p>
+        </footer>
+    </div>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+</html>
