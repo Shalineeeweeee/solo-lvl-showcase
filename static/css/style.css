@@ -1,0 +1,247 @@
+/* Import fonts if needed (e.g., from Google Fonts) */
+/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;700&display=swap'); */
+
+:root {
+    /* Define dark theme colors as default CSS variables */
+    --bg-color-dark: #1a1a2e; /* Deep purple/blue background */
+    --card-bg-dark: #2a2a4a; /* Slightly lighter card background */
+    --text-color-dark: #e0e0ff; /* Light text for dark theme */
+    --heading-color-dark: #bb86fc; /* Purple accent for headings */
+    --accent-color-dark: #00bcd4; /* Cyan/blue for highlights */
+    --border-color-dark: #3a3a5a; /* Border color */
+    --gradient-start-dark: rgba(26, 26, 46, 0.8);
+    --gradient-end-dark: rgba(42, 42, 74, 0.8);
+}
+
+/* Light theme colors (will be applied via JS class toggle) */
+.light-theme {
+    --bg-color-dark: #f0f0f0; /* Light gray background */
+    --card-bg-dark: #ffffff; /* White card background */
+    --text-color-dark: #333333; /* Dark text for light theme */
+    --heading-color-dark: #6200ee; /* Darker purple accent */
+    --accent-color-dark: #03dac6; /* Teal accent */
+    --border-color-dark: #cccccc; /* Lighter border color */
+    --gradient-start-dark: rgba(240, 240, 240, 0.8);
+    --gradient-end-dark: rgba(255, 255, 255, 0.8);
+}
+
+
+/* Basic Resets */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    width: 100%;
+    overflow: hidden; /* Prevent scrolling if elements overflow */
+}
+
+body {
+    font-family: sans-serif; /* Placeholder, will change with imported fonts */
+    background-color: var(--bg-color-dark);
+    color: var(--text-color-dark);
+    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth theme transition */
+}
+
+#app-container {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    width: 100vw;
+}
+
+/* Header Styles */
+#main-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1.5rem 3rem;
+    background-color: rgba(0, 0, 0, 0.3); /* Semi-transparent header */
+    -webkit-backdrop-filter: blur(5px); /* Blurry effect for Safari */
+    backdrop-filter: blur(5px); /* Blurry effect */
+    color: var(--text-color-dark);
+    position: fixed; /* Keep header at top */
+    width: 100%;
+    top: 0;
+    left: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 2.5rem;
+    font-weight: bold;
+    color: var(--heading-color-dark);
+}
+
+#main-nav ul {
+    list-style: none;
+    display: flex;
+    gap: 2.5rem;
+}
+
+#main-nav ul li a {
+    text-decoration: none;
+    color: var(--text-color-dark);
+    font-size: 1.2rem;
+    transition: color 0.3s ease;
+}
+
+#main-nav ul li a:hover {
+    color: var(--accent-color-dark);
+}
+
+/* Main Character Showcase Styles */
+#character-showcase {
+    flex-grow: 1; /* Allows main content to take up available space */
+    display: flex;
+    align-items: center; /* Vertically center content */
+    justify-content: center; /* Horizontally center content */
+    padding-top: 100px; /* Offset for fixed header */
+    position: relative;
+    overflow: hidden; /* Ensure background images are clipped */
+}
+
+.character-display {
+    display: flex;
+    align-items: center;
+    justify-content: space-around;
+    width: 90%;
+    max-width: 1400px; /* Limit max width of content */
+    position: relative; /* For positioning character-info and image */
+}
+
+.character-info {
+    flex-basis: 45%; /* Take up nearly half the space */
+    padding: 2rem;
+    background: linear-gradient(to right, var(--gradient-start-dark), var(--gradient-end-dark));
+    border-radius: 15px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    z-index: 2; /* Ensure info box is above character image if needed */
+    -webkit-backdrop-filter: blur(8px);
+    backdrop-filter: blur(8px);
+    border: 1px solid var(--border-color-dark);
+}
+
+.character-title {
+    font-size: 1.5rem;
+    color: var(--accent-color-dark);
+    margin-bottom: 0.5rem;
+}
+
+.character-name {
+    font-size: 4rem; /* Large font for name */
+    color: var(--heading-color-dark);
+    margin-bottom: 1rem;
+}
+
+.character-name .korean-name {
+    font-size: 1.8rem;
+    color: var(--text-color-dark);
+    opacity: 0.7;
+    margin-left: 0.5rem;
+}
+
+.character-about-placeholder {
+    font-size: 1rem;
+    line-height: 1.6;
+    margin-top: 1.5rem;
+}
+
+.social-icons {
+    margin-top: 1.5rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.social-icons img {
+    width: 30px;
+    height: 30px;
+    opacity: 0.8;
+    transition: opacity 0.3s ease;
+}
+
+.social-icons img:hover {
+    opacity: 1;
+}
+
+.character-image-container {
+    flex-basis: 50%; /* Take up the other half */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+}
+
+#character-main-image {
+    max-width: 100%; /* Ensure image fits */
+    height: auto;
+    display: block;
+    object-fit: contain;
+    /* You'll likely need to adjust positioning and z-index for this image */
+    /* relative to its background, as seen in the design */
+    z-index: 1; /* Keep it below info box if they overlap */
+}
+
+.media-controls {
+    position: absolute; /* Position relative to .character-display or .character-image-container */
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex;
+    gap: 15px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 10px 20px;
+    border-radius: 50px;
+    z-index: 3;
+}
+/* Styles for media buttons (placeholder) */
+.media-controls button {
+    width: 40px;
+    height: 40px;
+    background-color: var(--accent-color-dark);
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+.media-controls button:hover {
+    background-color: var(--heading-color-dark);
+}
+
+
+/* ABOUT Section */
+#about-section {
+    position: absolute; /* Position it relative to #character-showcase */
+    right: 3rem; /* Adjust as per design */
+    top: 50%;
+    transform: translateY(-50%);
+    width: 250px; /* Adjust width */
+    padding: 1.5rem;
+    background-color: var(--card-bg-dark);
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+    z-index: 5;
+    border: 1px solid var(--border-color-dark);
+}
+
+#about-section h3 {
+    font-size: 1.5rem;
+    color: var(--heading-color-dark);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+/* Footer Styles */
+#main-footer {
+    padding: 1rem;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.3);
+    color: var(--text-color-dark);
+    position: fixed; /* Fix to bottom */
+    bottom: 0;
+    width: 100%;
+    z-index: 100;
+}
