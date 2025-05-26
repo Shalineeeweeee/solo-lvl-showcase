@@ -9,7 +9,6 @@ body {
     /* Existing basic styles */
     height: 100%;
     width: 100%;
-    overflow: hidden;
     font-family: sans-serif; /* Replace with your actual font */
     color: var(--text-color-dark);
     transition: background-color 0.5s ease, color 0.5s ease;
@@ -110,8 +109,8 @@ body {
     list-style: none; /* Removes default bullet points from list items */
     display: flex;    /* Enables Flexbox for horizontal alignment of list items */
     gap: 3em;         /* Increased gap for more space between navigation items */
-    left: 30em;       /* Positioning from the left */
-    bottom: 5em;      /* Positioning from the bottom */
+    left: 20em;       /* Positioning from the left */
+    bottom: 7.7em;      /* Positioning from the bottom */
 }
 
 /* --------------------------------------------------- */
@@ -145,16 +144,91 @@ body {
     height: 1px; /* Set height to border thickness for horizontal line */
     margin-top: 10px; /* Add some space above the line */
     margin-bottom: 10px; /* Add some space below the line */
-    left:50em;
-    bottom:2.3em;
+    left:40em;
+    bottom:6.2em;
 }
 
-.button {
+#sign {
     position: absolute;
     list-style: none;
     display: flex;
-    gap: 2.5rem;
-    right:50em;
+    right:26em;
+    border: none;
+    background-color: transparent; /* Transparent background */
+    color: white;
+    font-size: 1.1rem; 
+    text-decoration: none; /* Removes default underline from links */
+    color: var(--text-color-dark); /* Uses your defined dark text color variable */
+    padding: 0.5rem 1rem;  /* Adds some internal padding around the link text */
+    /* Removed the incorrect 'gap' property from here, as it doesn't apply to <a> tags */
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+    bottom:6.6em;
+}
+
+#sign:hover {
+    color: #ffffff; /* Make the text pure white on hover for a brighter base for the glow */
+    text-shadow:
+        0 0 10px #ffffff,   /* First layer: a noticeable white glow */
+        0 0 20px #ffffff,   /* Second layer: a wider white glow */
+        0 0 30px #ffffff;   /* Third layer: an even wider, softer white glow */
+    /* These multiple layers create a more intense and "deeper" white glow effect. */
+}
+
+/* static/css/style.css */
+
+/* --------------------------------------------------- */
+/* Styles for the Search Container */
+/* --------------------------------------------------- */
+.search-container {
+    position: absolute; /* Position it relative to the main-nav */
+    right: 3.5em; /* Adjust this to move it further left or right */
+    bottom: 7.1em; /* Align it with the nav items' vertical position */
+    display: flex; /* Use flexbox to align input and button */
+    align-items: center; /* Vertically center items */
+    background-color: rgba(255, 255, 255, 0.05); /* Very subtle translucent background */
+    border: 1px solid rgba(255, 255, 255, 0.2); /* Thin, subtle border */
+    border-radius: 5px; /* Slightly rounded corners */
+    padding: 0.3em 0.5em;
+    -webkit-backdrop-filter: blur(5px); /* For Safari compatibility */
+    backdrop-filter: blur(5px); /* Optional: Adds a frosted glass effect */
+}
+
+/* --------------------------------------------------- */
+/* Styles for the Search Input Field */
+/* --------------------------------------------------- */
+.search-input {
+    background: transparent; /* No background color */
+    border: none; /* No default border */
+    outline: none; /* Remove outline on focus */
+    color: var(--text-color-dark); /* Use your defined text color variable */
+    font-size: 1rem;
+    padding: 0.2em 0.5em;
+    width: 300px; /* Adjust width as needed */
+}
+
+.search-input::placeholder {
+    color: rgba(255, 255, 255, 0.6); /* Lighter placeholder text */
+}
+
+/* --------------------------------------------------- */
+/* Styles for the Search Button (the "Q" or icon) */
+/* --------------------------------------------------- */
+.search-button {
+    background: transparent;
+    border: none;
+    color: var(--text-color-dark); /* Will apply to the icon */
+    font-size: 1.2rem; /* Will set the size of the icon */
+    cursor: pointer;
+    padding: 0.2em 0.5em;
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+    color:rgba(255, 255, 255, 0.76); /* Default color for the button */
+}
+
+.search-button:hover {
+    color: #ffffff;
+    text-shadow:
+        0 0 8px #ffffff,
+        0 0 15px #ffffff;
 }
 
 /* Main Character Showcase Styles */
@@ -165,7 +239,7 @@ body {
     justify-content: center; /* Horizontally center content */
     padding-top: 100px; /* Offset for fixed header */
     position: relative;
-    overflow: hidden; /* Ensure background images are clipped */
+    overflow: hidden; 
 }
 
 .character-display {
@@ -186,19 +260,21 @@ body {
 
 .character-title {
     font-size: 1.5rem;
-    color: var(--accent-color-dark);
+    color: white;
     margin-bottom: 0.5rem;
 }
 
 .character-name {
     font-size: 4rem; /* Large font for name */
-    color: var(--heading-color-dark);
+    color: white;
+    font-weight: 700;
     margin-bottom: 1rem;
 }
 
 .character-name .korean-name {
     font-size: 1.8rem;
-    color: var(--text-color-dark);
+    color: white;
+    font-weight: 700;
     opacity: 0.7;
     margin-left: 0.5rem;
 }
@@ -216,8 +292,8 @@ body {
 }
 
 .social-icons img {
-    width: 30px;
-    height: 30px;
+    width: 10em;
+    height: 10em;
     opacity: 0.8;
     transition: opacity 0.3s ease;
 }
@@ -226,22 +302,20 @@ body {
     opacity: 1;
 }
 
-.character-image-container {
-    flex-basis: 50%; /* Take up the other half */
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    position: relative;
-}
-
+/* --------------------------------------------------- */
+/* Actual Character Image Styling */
+/* --------------------------------------------------- */
 #character-main-image {
-    max-width: 100%; /* Ensure image fits */
-    height: auto;
-    display: block;
+    position:absolute; /* Position relative to .character-image-container */
+    bottom: -31em;       /* Aligns bottom of image with bottom of container */
+    display: block; /* Remove extra space below image */
+    width: 100em;    /* Make image fill its container */
+    height: 100em;   /* Maintain aspect ratio */
     object-fit: contain;
-    /* You'll likely need to adjust positioning and z-index for this image */
-    /* relative to its background, as seen in the design */
-    z-index: 1; /* Keep it below info box if they overlap */
+    right:30em; 
+    z-index: 1000;
+    opacity: 1;/* Ensure the image fits within the bounds of the container without cropping */
+    /* object-position: bottom; Adjust if you need to align the image within its container */
 }
 
 .media-controls {

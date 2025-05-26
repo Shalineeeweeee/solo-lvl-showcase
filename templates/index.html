@@ -4,9 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Solo Leveling Showcase</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     </head>
 <body class="dark-theme">
+    <img id="character-main-image" src="{{ url_for('static', filename='img/sung-jin-woo-main.png') }}" alt="Sung Jin Woo">
     <div id="app-container">
         <header id="main-header">
             <nav id="main-nav">
@@ -18,6 +20,13 @@
                 </ul>
                 <div class="line"></div>
                 <button id="sign">Sign Up</button>
+                    <div class="search-container">
+                        <button type="submit" class="search-button" title="Search">
+                            <i class="fas fa-search"></i>
+                        </button>
+                        <input type="text" placeholder="Search..." class="search-input">
+                    </div>
+                </div>
             </nav>
         </header>
 
@@ -35,12 +44,10 @@
                     </div>
                 </div>
                 <div class="character-image-container">
-                    <img id="character-main-image" src="{{ url_for('static', filename='img/sung-jin-woo-main.png') }}" alt="Sung Jin Woo">
                 </div>
                 <div class="media-controls">
                     <button class="play-pause">play</button>
                     <div class="progress-bar"></div>
-                    <button class="volume">house</button>
                 </div>
             </div>
 
