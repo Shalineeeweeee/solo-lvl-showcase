@@ -9,15 +9,15 @@
 <body class="dark-theme">
     <div id="app-container">
         <header id="main-header">
-            <div class="logo">Solo Leveling</div>
             <nav id="main-nav">
+                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Solo Leveling Logo" class="logo">
                 <ul>
                     <li><a href="#" class="nav-item">Home</a></li>
-                    <li><a href="#" class="nav-item" id="theme-toggle">Theme</a></li>
                     <li><a href="#" class="nav-item">Characters</a></li>
-                    <li><a href="#" class="nav-item">Sign Up</a></li>
-                    <li><a href="#" class="nav-item">Log In</a></li>
+                    <li><a href="#" class="nav-item">Help</a></li>
                 </ul>
+                <div class="line"></div>
+                <button id="sign">Sign Up</button>
             </nav>
         </header>
 
@@ -49,10 +49,6 @@
                 <p>This section will contain more in-depth information or links about the character or the Solo Leveling series.</p>
                 </aside>
         </main>
-
-        <footer id="main-footer">
-            <p>kentziex.</p>
-        </footer>
     </div>
 
     <script src="{{ url_for('static', filename='js/script.js') }}"></script>
