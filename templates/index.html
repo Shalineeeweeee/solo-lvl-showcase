@@ -6,30 +6,30 @@
     <title>Solo Leveling Showcase</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    </head>
-<body class="dark-theme">
+</head>
+<body>
+    <div id="character-background-overlay"></div>
     <img id="character-main-image" src="{{ url_for('static', filename='img/sung-jin-woo-main.png') }}" alt="Sung Jin Woo">
-    <div id="app-container">
-        <header id="main-header">
-            <nav id="main-nav">
-                <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Solo Leveling Logo" class="logo">
-                <ul>
-                    <li><a href="#" class="nav-item">Home</a></li>
-                    <li><a href="#" class="nav-item">Characters</a></li>
-                    <li><a href="#" class="nav-item">Help</a></li>
-                </ul>
-                <div class="line"></div>
-                <button id="sign">Sign Up</button>
-                    <div class="search-container">
-                        <button type="submit" class="search-button" title="Search">
-                            <i class="fas fa-search"></i>
-                        </button>
-                        <input type="text" placeholder="Search..." class="search-input">
-                    </div>
-                </div>
-            </nav>
-        </header>
 
+    <header id="main-header">
+        <nav id="main-nav">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Solo Leveling Logo" class="logo">
+            <ul>
+                <li><a href="#" class="nav-item">Home</a></li>
+                <li><a href="#" class="nav-item">Characters</a></li>
+                <li><a href="#" class="nav-item">Help</a></li>
+            </ul>
+            <button id="sign">Sign Up</button>
+            <div class="search-container">
+                <button type="submit" class="search-button" title="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+                <input type="text" placeholder="Search..." class="search-input">
+            </div>
+        </nav>
+    </header>
+
+    <div id="app-container">
         <main id="character-showcase">
             <div class="character-display">
                 <div class="character-info">
@@ -37,10 +37,11 @@
                     <h1 class="character-name">SUNG JIN WOO <span class="korean-name">(성진우)</span></h1>
                     <div class="character-about-placeholder">
                         <p>This is a placeholder for details about Sung Jin Woo. We'll populate this dynamically or add more static content later.</p>
-                        <div class="social-icons">
-                            <a href="#"><img src="{{ url_for('static', filename='img/icon-twitter.png') }}" alt="Twitter"></a>
-                            <a href="#"><img src="{{ url_for('static', filename='img/icon-instagram.png') }}" alt="Instagram"></a>
-                            </div>
+                    </div>
+
+                    <div class="social-icons">
+                        <a href="#"><img src="{{ url_for('static', filename='img/icon-twitter.png') }}" alt="Twitter"></a>
+                        <a href="#"><img src="{{ url_for('static', filename='img/icon-instagram.png') }}" alt="Instagram"></a>
                     </div>
                 </div>
                 <div class="media-controls">
@@ -52,7 +53,7 @@
             <aside id="about-section">
                 <h3>ABOUT</h3>
                 <p>This section will contain more in-depth information or links about the character or the Solo Leveling series.</p>
-                </aside>
+            </aside>
         </main>
     </div>
 

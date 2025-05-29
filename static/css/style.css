@@ -1,59 +1,30 @@
+/* Import fonts if needed */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;700&display=swap');
 
-/* Import fonts if needed (e.g., from Google Fonts) */
-/* @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;700&display=swap'); */
-
-/* In your style.css */
-/* In your style.css */
-
-body {
-    /* Existing basic styles */
-    height: 100%;
-    width: 100%;
-    font-family: sans-serif; /* Replace with your actual font */
-    color: var(--text-color-dark);
-    transition: background-color 0.5s ease, color 0.5s ease;
-
-    /* Simplified Gradient Background */
-    background: linear-gradient(
-        to left,
-        #390b65 2%,      /* Deep, dark blue-purple at the start */
-        #1b1d92 40%,     /* Deeper, more saturated purple in the middle */
-        #160266 70%,     /* Transitioning to a slightly different dark purple */
-        #000000 100%     /* Very dark, almost black at the end */
-    );
-    background-size: cover;          /* Ensures the gradient covers the whole viewport */
-    background-position: center center;
-    background-attachment: fixed;    /* Keeps the background fixed when scrolling (if content ever overflows) */
-
-    /* Removed: background-image, background-repeat, background-blend-mode */
-}
-
+/* Root Variables for Themes */
 :root {
-    /* Define dark theme colors as default CSS variables */
-    --bg-color-dark: #1a1a2e; /* Deep purple/blue background */
-    --card-bg-dark: #2a2a4a; /* Slightly lighter card background */
-    --text-color-dark: #e0e0ff; /* Light text for dark theme */
-    --heading-color-dark: #bb86fc; /* Purple accent for headings */
-    --accent-color-dark: #00bcd4; /* Cyan/blue for highlights */
-    --border-color-dark: #3a3a5a; /* Border color */
+    --bg-color-dark: #1a1a2e;
+    --card-bg-dark: #2a2a4a;
+    --text-color-dark: #e0e0ff;
+    --heading-color-dark: #bb86fc;
+    --accent-color-dark: #00bcd4;
+    --border-color-dark: #3a3a5a;
     --gradient-start-dark: rgba(26, 26, 46, 0.8);
     --gradient-end-dark: rgba(42, 42, 74, 0.8);
 }
 
-/* Light theme colors (will be applied via JS class toggle) */
 .light-theme {
-    --bg-color-dark: #f0f0f0; /* Light gray background */
-    --card-bg-dark: #ffffff; /* White card background */
-    --text-color-dark: #333333; /* Dark text for light theme */
-    --heading-color-dark: #6200ee; /* Darker purple accent */
-    --accent-color-dark: #03dac6; /* Teal accent */
-    --border-color-dark: #cccccc; /* Lighter border color */
+    --bg-color-dark: #f0f0f0;
+    --card-bg-dark: #ffffff;
+    --text-color-dark: #333333;
+    --heading-color-dark: #6200ee;
+    --accent-color-dark: #03dac6;
+    --border-color-dark: #cccccc;
     --gradient-start-dark: rgba(240, 240, 240, 0.8);
     --gradient-end-dark: rgba(255, 255, 255, 0.8);
 }
 
-
-/* Basic Resets */
+/* Reset */
 * {
     margin: 0;
     padding: 0;
@@ -63,199 +34,223 @@ body {
 html, body {
     height: 100%;
     width: 100%;
-    overflow: hidden; /* Prevent scrolling if elements overflow */
+    overflow-x: hidden;
 }
 
 body {
-    font-family: sans-serif; /* Placeholder, will change with imported fonts */
-    background-color: var(--bg-color-dark);
+    font-family: 'Montserrat', sans-serif;
     color: var(--text-color-dark);
-    transition: background-color 0.5s ease, color 0.5s ease; /* Smooth theme transition */
+    background: linear-gradient(to left, #390b65 2%, #1b1d92 40%, #160266 70%, #000000 100%);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    transition: background-color 0.5s ease, color 0.5s ease;
 }
 
+/* App Container - Now only holds the content that should scroll/move */
 #app-container {
-    display: flex;
-    flex-direction: column;
+    position: relative;
     min-height: 100vh;
     width: 100vw;
+    display: flex;
+    flex-direction: column;
+    z-index: 1; /* Lowest z-index for the main content layer */
+    padding-top: 150px; /* Adjust this value as needed based on header height */
 }
 
-/* Header Styles */
+/* Character Image - The transparent PNG */
+#character-main-image {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1800px;
+    height: auto;
+    object-fit: contain;
+    object-position: center bottom;
+    opacity: 1;
+    pointer-events: none; /* Allows clicks to go through */
+    display: block;
+    z-index: 9990; /* High enough to be over the body content, but still below the *full* header */
+}
+
+/* Solid Background Overlay for the Character Image */
+#character-background-overlay {
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 1800px;
+    height: 800px; /* Adjust this value! */
+    z-index: 9989; /* Sits BELOW #character-main-image (9990) and #main-header (9999) */
+}
+
+/* Header - Top navigation section */
 #main-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
     padding: 1.5rem 3rem;
     color: var(--text-color-dark);
-    position: fixed; /* Keep header at top */
+    position: fixed;
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 100;
+    z-index: 9999; /* HIGHEST: To ensure clickability of header content and to "contain" the line */
+    background-color: transparent;
+    /* THE NEW WAY TO CREATE THE LINE - USING A BACKGROUND GRADIENT */
+    /* This creates a white line that fades out (transparent) where the character image is */
+    border-bottom: 1px solid transparent; /* Required for background-image to apply to border */
+    border-image: linear-gradient(
+        to right,
+        white 0%,            /* Start of the line */
+        white calc(50% - 15em), /* Line extends from left to almost character center */
+        transparent calc(50% - 10em), /* Start fade out for character */
+        transparent calc(50% + 10em), /* End fade in for character */
+        white calc(50% + 15em), /* Line picks up after character */
+        white 100%           /* End of the line */
+    ) 1; /* Stretch image over the border */
+
+    /* Adjust the '50% - 15em', '50% - 10em', '50% + 10em', '50% + 15em' values
+       to control the length and gap of the line. 'em' or 'px' or '%' can be used. */
 }
 
-#main-nav img {
-    height: 3em;
-    width: 5em;
+/* Navigation - No specific changes needed here */
+#main-nav {
+    display: flex;
+    width: 100%;
+    position: relative;
+    z-index: 10; /* Ensures nav content is above the background line in the header */
+    align-items: flex-start;
 }
 
-/* static/css/style.css */
+#main-nav img.logo {
+    height: 8em;
+    width: 10em;
+}
 
-/* --------------------------------------------------- */
-/* Styles for the main navigation container */
-/* --------------------------------------------------- */
 #main-nav ul {
-    position: absolute;
-    list-style: none; /* Removes default bullet points from list items */
-    display: flex;    /* Enables Flexbox for horizontal alignment of list items */
-    gap: 3em;         /* Increased gap for more space between navigation items */
-    left: 20em;       /* Positioning from the left */
-    bottom: 7.7em;      /* Positioning from the bottom */
-}
-
-/* --------------------------------------------------- */
-/* Styles for individual navigation links */
-/* --------------------------------------------------- */
-#main-nav ul li a {
-    text-decoration: none; /* Removes default underline from links */
-    color: var(--text-color-dark); /* Uses your defined dark text color variable */
-    font-size: 1.2rem;     /* Sets the font size */
-    padding: 0.5rem 1rem;  /* Adds some internal padding around the link text */
-    /* Removed the incorrect 'gap' property from here, as it doesn't apply to <a> tags */
-    transition: text-shadow 0.3s ease, color 0.3s ease; /* Smooth transition for glow and color changes */
-}
-
-/* --------------------------------------------------- */
-/* Hover effect for the navigation links (Deeper White Glow) */
-/* --------------------------------------------------- */
-#main-nav ul li a:hover {
-    color: #ffffff; /* Make the text pure white on hover for a brighter base for the glow */
-    text-shadow:
-        0 0 10px #ffffff,   /* First layer: a noticeable white glow */
-        0 0 20px #ffffff,   /* Second layer: a wider white glow */
-        0 0 30px #ffffff;   /* Third layer: an even wider, softer white glow */
-    /* These multiple layers create a more intense and "deeper" white glow effect. */
-}
-
-.line {
-    position: relative; /* Position relative to its parent */
-    border-bottom: 1px solid white; /* Or whatever color you want, e.g., #AAA, #DDD */
-    width: 40em; /* Make it stretch across its parent */
-    height: 1px; /* Set height to border thickness for horizontal line */
-    margin-top: 10px; /* Add some space above the line */
-    margin-bottom: 10px; /* Add some space below the line */
-    left:40em;
-    bottom:6.2em;
-}
-
-#sign {
-    position: absolute;
     list-style: none;
     display: flex;
-    right:26em;
-    border: none;
-    background-color: transparent; /* Transparent background */
-    color: white;
-    font-size: 1.1rem; 
-    text-decoration: none; /* Removes default underline from links */
-    color: var(--text-color-dark); /* Uses your defined dark text color variable */
-    padding: 0.5rem 1rem;  /* Adds some internal padding around the link text */
-    /* Removed the incorrect 'gap' property from here, as it doesn't apply to <a> tags */
+    gap: 3em;
+    margin-left: 12em;
+    margin-top: 5em;
+    position: relative;
+    top:-1em; /* Adjusts the vertical position of the nav items */
+    z-index: 1; /* Relative to #main-nav */
+}
+
+#main-nav ul li a {
+    text-decoration: none;
+    color: var(--text-color-dark);
+    font-size: 1.2rem;
+    padding: 0.5rem 1rem;
     transition: text-shadow 0.3s ease, color 0.3s ease;
-    bottom:6.6em;
+}
+
+#main-nav ul li a:hover {
+    color: #ffffff;
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
+}
+
+/* REMOVED .line CSS rule entirely */
+
+#sign {
+    margin-left: 85em;
+    margin-top: 4em;
+    display: flex;
+    border: none;
+    background: transparent;
+    color: var(--text-color-dark);
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    text-decoration: none;
+    transition: text-shadow 0.3s ease, color 0.3s ease;
+    position: relative;
+    z-index: 1;
 }
 
 #sign:hover {
-    color: #ffffff; /* Make the text pure white on hover for a brighter base for the glow */
-    text-shadow:
-        0 0 10px #ffffff,   /* First layer: a noticeable white glow */
-        0 0 20px #ffffff,   /* Second layer: a wider white glow */
-        0 0 30px #ffffff;   /* Third layer: an even wider, softer white glow */
-    /* These multiple layers create a more intense and "deeper" white glow effect. */
+    color: #ffffff;
+    text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
 }
 
-/* static/css/style.css */
-
-/* --------------------------------------------------- */
-/* Styles for the Search Container */
-/* --------------------------------------------------- */
 .search-container {
-    position: absolute; /* Position it relative to the main-nav */
-    right: 3.5em; /* Adjust this to move it further left or right */
-    bottom: 7.1em; /* Align it with the nav items' vertical position */
-    display: flex; /* Use flexbox to align input and button */
-    align-items: center; /* Vertically center items */
-    background-color: rgba(255, 255, 255, 0.05); /* Very subtle translucent background */
-    border: 1px solid rgba(255, 255, 255, 0.2); /* Thin, subtle border */
-    border-radius: 5px; /* Slightly rounded corners */
+    margin-left: 60em;
+    margin-top: 4em;
+    display: flex;
+    align-items: center;
+    background-color: rgba(255, 255, 255, 0.05);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    border-radius: 5px;
     padding: 0.3em 0.5em;
-    -webkit-backdrop-filter: blur(5px); /* For Safari compatibility */
-    backdrop-filter: blur(5px); /* Optional: Adds a frosted glass effect */
+    -webkit-backdrop-filter: blur(5px);
+    backdrop-filter: blur(5px);
+    position: relative;
+    z-index: 1;
 }
 
-/* --------------------------------------------------- */
-/* Styles for the Search Input Field */
-/* --------------------------------------------------- */
 .search-input {
-    background: transparent; /* No background color */
-    border: none; /* No default border */
-    outline: none; /* Remove outline on focus */
-    color: var(--text-color-dark); /* Use your defined text color variable */
+    background: transparent;
+    border: none;
+    outline: none;
+    color: var(--text-color-dark);
     font-size: 1rem;
     padding: 0.2em 0.5em;
-    width: 300px; /* Adjust width as needed */
+    width: 300px;
 }
 
 .search-input::placeholder {
-    color: rgba(255, 255, 255, 0.6); /* Lighter placeholder text */
+    color: rgba(255, 255, 255, 0.6);
 }
 
-/* --------------------------------------------------- */
-/* Styles for the Search Button (the "Q" or icon) */
-/* --------------------------------------------------- */
 .search-button {
     background: transparent;
     border: none;
-    color: var(--text-color-dark); /* Will apply to the icon */
-    font-size: 1.2rem; /* Will set the size of the icon */
+    color: rgba(255, 255, 255, 0.76);
+    font-size: 1.2rem;
     cursor: pointer;
     padding: 0.2em 0.5em;
     transition: text-shadow 0.3s ease, color 0.3s ease;
-    color:rgba(255, 255, 255, 0.76); /* Default color for the button */
 }
 
 .search-button:hover {
     color: #ffffff;
-    text-shadow:
-        0 0 8px #ffffff,
-        0 0 15px #ffffff;
+    text-shadow: 0 0 8px #ffffff, 0 0 15px #ffffff;
 }
 
-/* Main Character Showcase Styles */
+/* Main Content Area */
 #character-showcase {
-    flex-grow: 1; /* Allows main content to take up available space */
+    flex-grow: 1;
     display: flex;
-    align-items: center; /* Vertically center content */
-    justify-content: center; /* Horizontally center content */
-    padding-top: 100px; /* Offset for fixed header */
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
     position: relative;
-    overflow: hidden; 
+    overflow: hidden;
+    z-index: 5;
 }
 
 .character-display {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     justify-content: space-around;
     width: 90%;
-    max-width: 1400px; /* Limit max width of content */
-    position: relative; /* For positioning character-info and image */
+    max-width: 1400px;
+    position: relative;
+    z-index: 2;
 }
 
 .character-info {
-    flex-basis: 45%; /* Take up nearly half the space */
+    flex-basis: 45%;
     padding: 2rem;
     border-radius: 15px;
-    z-index: 2; /* Ensure info box is above character image if needed */
+    position: relative;
+    z-index: 5;
+    background-color: transparent;
+    color: var(--text-color-dark);
 }
 
 .character-title {
@@ -265,7 +260,7 @@ body {
 }
 
 .character-name {
-    font-size: 4rem; /* Large font for name */
+    font-size: 4rem;
     color: white;
     font-weight: 700;
     margin-bottom: 1rem;
@@ -289,6 +284,8 @@ body {
     margin-top: 1.5rem;
     display: flex;
     gap: 1rem;
+    position: relative;
+    z-index: 6;
 }
 
 .social-icons img {
@@ -302,201 +299,16 @@ body {
     opacity: 1;
 }
 
-/* --------------------------------------------------- */
-/* Actual Character Image Styling */
-/* --------------------------------------------------- */
-#character-main-image {
-    position:absolute; /* Position relative to .character-image-container */
-    bottom: -31em;       /* Aligns bottom of image with bottom of container */
-    display: block; /* Remove extra space below image */
-    width: 100em;    /* Make image fill its container */
-    height: 100em;   /* Maintain aspect ratio */
-    object-fit: contain;
-    right:30em; 
-    z-index: 1000;
-    opacity: 1;/* Ensure the image fits within the bounds of the container without cropping */
-    /* object-position: bottom; Adjust if you need to align the image within its container */
-}
-
 .media-controls {
-    position: absolute; /* Position relative to .character-display or .character-image-container */
-    bottom: 20px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: flex;
-    gap: 15px;
-    background-color: rgba(0, 0, 0, 0.5);
-    padding: 10px 20px;
-    border-radius: 50px;
-    z-index: 3;
-}
-/* Styles for media buttons (placeholder) */
-.media-controls button {
-    width: 40px;
-    height: 40px;
-    background-color: var(--accent-color-dark);
-    border: none;
-    border-radius: 50%;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-}
-.media-controls button:hover {
-    background-color: var(--heading-color-dark);
-}
-
-
-/* ABOUT Section */
-#about-section {
-    position: absolute; /* Position it relative to #character-showcase */
-    right: 3rem; /* Adjust as needed */
-    top: 50%;
-    transform: translateY(-50%);
-    width: 250px; /* Adjust width */
-    padding: 1.5rem;
+    margin-top: 2rem;
+    position: relative;
     z-index: 5;
 }
 
-#about-section h3 {
-    font-size: 1.5rem;
-    color: var(--heading-color-dark);
-    margin-bottom: 1rem;
-    text-align: center;
-}
-
-/* Footer Styles */
-#main-footer {
-    padding: 1rem;
-    text-align: center;
-    background-color: rgba(0, 0, 0, 0.3);
-    color: var(--text-color-dark);
-    position: fixed; /* Fix to bottom */
-    bottom: 0;
-    width: 100%;
-    z-index: 100;
-}
-
-/* --- Media Queries --- */
-
-/* Small Tablets and Up (e.g., > 600px or 768px) */
-@media (min-width: 768px) {
-    #main-header {
-        padding: 1.5rem 2rem; /* Restore slightly larger padding */
-    }
-
-    .logo {
-        font-size: 2.5rem; /* Restore desktop size */
-    }
-
-    #main-nav ul {
-        gap: 2rem; /* Restore desktop gap */
-    }
-
-    #character-showcase {
-        justify-content: flex-start; /* For desktop layout */
-        padding-top: 100px; /* Adjust if header changes height */
-    }
-
-    .character-display {
-        flex-direction: row; /* Go back to row layout */
-        justify-content: space-around; /* Original desktop spacing */
-        width: 90%;
-        max-width: 1400px; /* Standard desktop max-width */
-        height: 70vh; /* Restore height for desktop image */
-        padding-left: 0; /* Remove mobile padding */
-    }
-
-    .character-info {
-        flex-basis: 45%; /* Desktop basis */
-        padding: 2rem; /* Restore desktop padding */
-    }
-
-    .character-title {
-        font-size: 1.5rem; /* Restore desktop size */
-    }
-
-    .character-name {
-        font-size: 4rem; /* Restore desktop size */
-    }
-
-    .character-name .korean-name {
-        font-size: 1.8rem; /* Restore desktop size */
-    }
-
-    .character-image-container {
-        position: absolute; /* Reapply absolute positioning */
-        right: 0;
-        top: 50%;
-        transform: translateY(-50%) translateX(20%); /* Original desktop position */
-        width: 80%;
-        height: 100%;
-        justify-content: flex-end;
-    }
-
-    #character-main-image {
-        max-height: 100%;
-        width: auto;
-        object-fit: cover;
-        opacity: 0.7;
-        filter: drop-shadow(0 0 50px rgba(0, 0, 0, 0.8));
-    }
-
-    #about-section {
-        display: block; /* Show on larger screens */
-        position: absolute; /* Restore original position */
-        right: 3rem;
-        top: 50%;
-        transform: translateY(-50%);
-        width: 250px;
-        padding: 1.5rem;
-    }
-
-    .media-controls {
-        bottom: 20px; /* Restore desktop position */
-        left: 50%;
-        transform: translateX(-50%);
-        width: auto; /* Allow buttons to define width */
-    }
-}
-
-/* Larger Desktops (e.g., > 1200px) - for finer tuning if needed */
-@media (min-width: 1200px) {
-    #main-header {
-        padding: 1.5rem 3rem; /* Max padding */
-    }
-    .character-display {
-        max-width: 1600px; /* Allow wider for very large screens */
-    }
-    .character-info {
-        padding: 3rem; /* More padding on large screens */
-    }
-    #character-main-image {
-        /* Further adjust position for extra large screens if image gets too big */
-        transform: translateY(-50%) translateX(25%);
-    }
-}
-
-/* Very Small Screens (e.g., narrow mobile landscape) */
-@media (max-width: 480px) {
-    #main-header {
-        padding: 1rem 1rem;
-    }
-    .logo {
-        font-size: 2rem;
-    }
-    #main-nav ul {
-        gap: 1rem;
-    }
-    .character-info {
-        padding: 1rem;
-    }
-    .character-name {
-        font-size: 3rem;
-    }
-    .character-name .korean-name {
-        font-size: 1.5rem;
-    }
-    .social-icons img {
-        width: 25px;
-        height: 25px;
-    }
+#about-section {
+    padding: 2rem;
+    margin-top: 2rem;
+    background-color: var(--card-bg-dark);
+    border-radius: 15px;
+    z-index: 5;
 }
