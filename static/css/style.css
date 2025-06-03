@@ -72,7 +72,7 @@ body {
     opacity: 1;
     pointer-events: none; /* Allows clicks to go through */
     display: block;
-    z-index: 9990; /* High enough to be over the body content, but still below the *full* header */
+    z-index: 9990; /* High enough to be over the body content, but below the *full* header */
 }
 
 /* Solid Background Overlay for the Character Image */
@@ -99,22 +99,6 @@ body {
     top: 0;
     left: 0;
     z-index: 9999; /* HIGHEST: To ensure clickability of header content and to "contain" the line */
-    background-color: transparent;
-    /* THE NEW WAY TO CREATE THE LINE - USING A BACKGROUND GRADIENT */
-    /* This creates a white line that fades out (transparent) where the character image is */
-    border-bottom: 1px solid transparent; /* Required for background-image to apply to border */
-    border-image: linear-gradient(
-        to right,
-        white 0%,            /* Start of the line */
-        white calc(50% - 15em), /* Line extends from left to almost character center */
-        transparent calc(50% - 10em), /* Start fade out for character */
-        transparent calc(50% + 10em), /* End fade in for character */
-        white calc(50% + 15em), /* Line picks up after character */
-        white 100%           /* End of the line */
-    ) 1; /* Stretch image over the border */
-
-    /* Adjust the '50% - 15em', '50% - 10em', '50% + 10em', '50% + 15em' values
-       to control the length and gap of the line. 'em' or 'px' or '%' can be used. */
 }
 
 /* Navigation - No specific changes needed here */
@@ -127,8 +111,8 @@ body {
 }
 
 #main-nav img.logo {
-    height: 8em;
-    width: 10em;
+    height: 7em;
+    width: 7em;
 }
 
 #main-nav ul {
@@ -136,10 +120,10 @@ body {
     display: flex;
     gap: 3em;
     margin-left: 12em;
-    margin-top: 5em;
+    margin-top: 5em; /* Adjust this if the line position needs to align with nav */
     position: relative;
-    top:-1em; /* Adjusts the vertical position of the nav items */
     z-index: 1; /* Relative to #main-nav */
+    bottom:3.5em;
 }
 
 #main-nav ul li a {
@@ -154,8 +138,6 @@ body {
     color: #ffffff;
     text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
 }
-
-/* REMOVED .line CSS rule entirely */
 
 #sign {
     margin-left: 85em;
@@ -311,4 +293,14 @@ body {
     background-color: var(--card-bg-dark);
     border-radius: 15px;
     z-index: 5;
+}
+
+.nav-extension-line {
+  position: absolute;
+  top: 60px; /* Adjust to align just below your nav bar */
+  left: 780px; /* Adjust to start just after the "Help" link */
+  width: 500px; /* Adjust to match where your character image ends */
+  height: 2px;
+  background-color: white;
+  z-index: 10;
 }
