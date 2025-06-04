@@ -141,12 +141,11 @@ body {
 }
 
 #sign {
-    margin-left: 85em;
     margin-top: 4em;
     display: flex;
     border: none;
     background: transparent;
-    color: var(--text-color-dark);
+    color:rgba(255, 255, 255, 0.76);
     font-size: 1.1rem;
     padding: 0.5rem 1rem;
     text-decoration: none;
@@ -161,7 +160,7 @@ body {
 }
 
 #search-container {
-    margin-left: 60em;
+    margin-left: 5em;
     margin-top: 4em;
     display: flex;
     align-items: center;
