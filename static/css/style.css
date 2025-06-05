@@ -279,8 +279,8 @@ body {
 }
 
 .social-icons img {
-    width: 10em;
-    height: 10em;
+    width: 1.5em;
+    height: 1.5em;
     opacity: 0.8;
     transition: opacity 0.3s ease;
 }
@@ -320,7 +320,7 @@ body {
     cursor: pointer;
     margin-bottom: 1rem;
     position: relative;
-    top:1.5em;
+    top:2.5em;
     z-index: 6;
     -webkit-user-select: none;
     user-select: none;
@@ -344,6 +344,15 @@ body {
     font-weight: 700;
     color: rgba(255, 255, 255, 0.85);
     letter-spacing: 0.1em;
+}
+
+@keyframes glowPulse {
+  0%, 100% {
+    text-shadow: 0 0 10px #ffdd55, 0 0 20px #ffaa00;
+  }
+  50% {
+    text-shadow: 0 0 20px #ffaa00, 0 0 30px #ff8800;
+  }
 }
 
 
