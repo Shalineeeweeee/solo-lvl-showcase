@@ -1,4 +1,6 @@
 /* Import fonts if needed */
+@import url('https://fonts.googleapis.com/css2?family=Lakki+Reddy&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Permanent+Marker&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&family=Orbitron:wght@400;700&display=swap');
 
 /* Root Variables for Themes */
@@ -151,6 +153,8 @@ body {
     text-decoration: none;
     transition: text-shadow 0.3s ease, color 0.3s ease;
     position: relative;
+    left: 32em;
+    bottom: 2.5em;
     z-index: 1;
 }
 
@@ -159,8 +163,7 @@ body {
     text-shadow: 0 0 10px #ffffff, 0 0 20px #ffffff, 0 0 30px #ffffff;
 }
 
-#search-container {
-    margin-left: 5em;
+.search-container {
     margin-top: 4em;
     display: flex;
     align-items: center;
@@ -168,9 +171,11 @@ body {
     border: 1px solid rgba(255, 255, 255, 0.2);
     border-radius: 5px;
     padding: 0.3em 0.5em;
-    -webkit-backdrop-filter: blur(5px);
-    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(4px);
+    backdrop-filter: blur(4px);
     position: relative;
+    left: 38em;
+    bottom: 2.6em;
     z-index: 1;
 }
 
@@ -211,6 +216,8 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
+    top:4em;
+    right:9em;
     overflow: hidden;
     z-index: 5;
 }
@@ -220,46 +227,47 @@ body {
     align-items: flex-start;
     justify-content: space-around;
     width: 90%;
-    max-width: 1400px;
+    max-width: 1100px;
     position: relative;
     z-index: 2;
 }
 
 .character-info {
     flex-basis: 45%;
-    padding: 2rem;
     border-radius: 15px;
     position: relative;
+    right:20em;
     z-index: 5;
     background-color: transparent;
     color: var(--text-color-dark);
 }
 
 .character-title {
+    position: relative;
     font-size: 1.5rem;
-    color: white;
-    margin-bottom: 0.5rem;
+    color: rgba(255, 255, 255, 0.724);
 }
 
 .character-name {
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: white;
     font-weight: 700;
-    margin-bottom: 1rem;
 }
 
 .character-name .korean-name {
+    position: relative;
+    top:-0.5em;
     font-size: 1.8rem;
     color: white;
     font-weight: 700;
     opacity: 0.7;
-    margin-left: 0.5rem;
 }
 
 .character-about-placeholder {
     font-size: 1rem;
     line-height: 1.6;
     margin-top: 1.5rem;
+    text-align: justify; /* This aligns the ends of the lines */
 }
 
 .social-icons {
@@ -288,6 +296,8 @@ body {
 }
 
 #about-section {
+    position: relative;
+    right:5em;
     padding: 2rem;
     margin-top: 2rem;
     border-radius: 15px;
@@ -297,9 +307,43 @@ body {
 .nav-extension-line {
   position: absolute;
   top: 67px; /* Adjust to align just below your nav bar */
-  left: 780px; /* Adjust to start just after the "Help" link */
-  width: 500px; /* Adjust to match where your character image ends */
+  left: 710px; /* Adjust to start just after the "Help" link */
+  width: 600px; /* Adjust to match where your character image ends */
   height: 2px;
   background-color: rgba(255, 255, 255, 0.76);
   z-index: 10;
 }
+
+#rank-toggle {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    margin-bottom: 1rem;
+    position: relative;
+    top:1.5em;
+    z-index: 6;
+    -webkit-user-select: none;
+    user-select: none;
+    gap: 0.8em;
+}
+
+.glow-s {
+    font-family: 'Lakki Reddy', cursive;
+    font-size: 5rem;
+    color: #fae280;
+    transform: skewX(-5deg) rotate(-2deg);
+    text-shadow:
+        0 0 10px #ffdd55,
+        0 0 20px #ffaa00,
+        0 0 40px #ff8800,
+        0 0 60px #ff6600;
+}
+
+.rank-text {
+    font-size: 1.2rem;
+    font-weight: 700;
+    color: rgba(255, 255, 255, 0.85);
+    letter-spacing: 0.1em;
+}
+
+
