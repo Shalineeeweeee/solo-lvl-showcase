@@ -5,25 +5,36 @@
 
 /* Root Variables for Themes */
 :root {
-    --bg-color-dark: #1a1a2e;
-    --card-bg-dark: #2a2a4a;
-    --text-color-dark: #e0e0ff;
-    --heading-color-dark: #bb86fc;
-    --accent-color-dark: #00bcd4;
-    --border-color-dark: #3a3a5a;
-    --gradient-start-dark: rgba(26, 26, 46, 0.8);
-    --gradient-end-dark: rgba(42, 42, 74, 0.8);
+    --bg-color-dark:linear-gradient(to left, #390b65 2%, #1b1d92 40%, #160266 70%, #000000 100%);
+    --card-bg-dark: #2c2c54;
+    --text-color-dark: #ffffff;
+    --heading-color-dark: #ffcc00;
+    --accent-color-dark: #ff6f61;
+    --border-color-dark: #444444;
+    --gradient-start-dark: #390b65;
+    --gradient-end-dark: #000000;
+}
+
+.dark-theme {
+    --bg-color-dark: linear-gradient(to bottom, #1b1d92 2%, #160266 40%, #000000 70%, #390b65 100%);
+    --card-bg-dark: #2c2c54;
+    --text-color-dark: #ffffff;
+    --heading-color-dark: #ffcc00;
+    --accent-color-dark: #ff6f61;
+    --border-color-dark: #444444;
+    --gradient-start-dark: #1b1d92;
+    --gradient-end-dark: #000000;
 }
 
 .light-theme {
-    --bg-color-dark: #f0f0f0;
+    --bg-color-dark: linear-gradient(to bottom, #3a3128 2%, #4c3d27 40%, #845d25 70%, #be892d 100%);
     --card-bg-dark: #ffffff;
-    --text-color-dark: #333333;
-    --heading-color-dark: #6200ee;
-    --accent-color-dark: #03dac6;
-    --border-color-dark: #cccccc;
-    --gradient-start-dark: rgba(240, 240, 240, 0.8);
-    --gradient-end-dark: rgba(255, 255, 255, 0.8);
+    --text-color-dark: #f8f3f3;
+    --heading-color-dark: #ffd650;
+    --accent-color-dark: #794500;
+    --border-color-dark: #dddddd;
+    --gradient-start-dark: #ffffff;
+    --gradient-end-dark: #f0f0f0;
 }
 
 /* Reset */
@@ -42,7 +53,7 @@ html, body {
 body {
     font-family: 'Montserrat', sans-serif;
     color: var(--text-color-dark);
-    background: linear-gradient(to left, #390b65 2%, #1b1d92 40%, #160266 70%, #000000 100%);
+    background: var(--bg-color-dark);
     background-size: cover;
     background-position: center;
     background-attachment: fixed;
@@ -344,15 +355,16 @@ body {
     font-weight: 700;
     color: rgba(255, 255, 255, 0.85);
     letter-spacing: 0.1em;
+    position: relative;
+    z-index: 10000; /* Very high to bring it above everything */
+    pointer-events: auto;
 }
 
-@keyframes glowPulse {
-  0%, 100% {
-    text-shadow: 0 0 10px #ffdd55, 0 0 20px #ffaa00;
-  }
-  50% {
-    text-shadow: 0 0 20px #ffaa00, 0 0 30px #ff8800;
-  }
+#character-main-image,
+#character-background-overlay {
+  pointer-events: none;
 }
+
+
 
 
