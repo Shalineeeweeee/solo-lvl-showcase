@@ -15,8 +15,8 @@
     --gradient-end-dark: #000000;
 }
 
-.dark-theme {
-    --bg-color-dark: linear-gradient(to bottom, #1b1d92 2%, #160266 40%, #000000 70%, #390b65 100%);
+.theme-jinwoo {
+    --bg-color-dark: linear-gradient(to left, #390b65 2%, #1b1d92 40%, #160266 70%, #000000 100%);
     --card-bg-dark: #2c2c54;
     --text-color-dark: #ffffff;
     --heading-color-dark: #ffcc00;
@@ -26,7 +26,7 @@
     --gradient-end-dark: #000000;
 }
 
-.light-theme {
+.theme-haein {
     --bg-color-dark: linear-gradient(to bottom, #3a3128 2%, #4c3d27 40%, #845d25 70%, #be892d 100%);
     --card-bg-dark: #ffffff;
     --text-color-dark: #f8f3f3;
@@ -75,29 +75,32 @@ body {
 #character-main-image {
     position: absolute;
     bottom: 0;
-    left: 50%;
+    left: 43%;
     transform: translateX(-50%);
     width: 100%;
-    max-width: 1800px;
+    max-width: 1340px;
     height: auto;
     object-fit: contain;
     object-position: center bottom;
     opacity: 1;
     pointer-events: none; /* Allows clicks to go through */
     display: block;
-    z-index: 9990; /* High enough to be over the body content, but below the *full* header */
+    z-index: 9; /* High enough to be over the body content, but below the *full* header */
 }
 
 /* Solid Background Overlay for the Character Image */
 #character-background-overlay {
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 100%;
-    max-width: 1800px;
-    height: 800px; /* Adjust this value! */
-    z-index: 9989; /* Sits BELOW #character-main-image (9990) and #main-header (9999) */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: var(--bg-color-dark);
+    background-size: cover;
+    background-position: center;
+    z-index: -1; /* Send it behind everything */
+    transition: background 0.5s ease-in-out;
+    pointer-events: none;
 }
 
 /* Header - Top navigation section */
@@ -230,7 +233,7 @@ body {
     top:4em;
     right:9em;
     overflow: hidden;
-    z-index: 5;
+    z-index: 15;
 }
 
 .character-display {
@@ -240,15 +243,15 @@ body {
     width: 90%;
     max-width: 1100px;
     position: relative;
-    z-index: 2;
+    z-index: 10;
 }
 
 .character-info {
     flex-basis: 45%;
     border-radius: 15px;
-    position: relative;
+    position: relative; /* Keep this as it establishes a stacking context */
     right:20em;
-    z-index: 5;
+    z-index: 10; /* CHANGE THIS: Make it higher than the image's z-index */
     background-color: transparent;
     color: var(--text-color-dark);
 }
@@ -279,6 +282,8 @@ body {
     line-height: 1.6;
     margin-top: 1.5rem;
     text-align: justify; /* This aligns the ends of the lines */
+    position: relative;
+    z-index: 10;
 }
 
 .social-icons {
@@ -322,7 +327,7 @@ body {
   width: 600px; /* Adjust to match where your character image ends */
   height: 2px;
   background-color: rgba(255, 255, 255, 0.76);
-  z-index: 10;
+  z-index: 5;
 }
 
 #rank-toggle {
@@ -364,6 +369,20 @@ body {
 #character-background-overlay {
   pointer-events: none;
 }
+
+.glow-S {
+    font-family: 'Lakki Reddy', cursive;
+    font-size: 5rem;
+    color: #160266;
+    transform: skewX(-5deg) rotate(-2deg);
+    text-shadow:
+        0 0 10px #390b65,
+        0 0 20px #1b1d92,
+        0 0 40px #160266,
+        0 0 60px #000000;
+}
+
+
 
 
 
