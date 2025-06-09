@@ -17,7 +17,7 @@
 
 .theme-jinwoo {
     --bg-color-dark: linear-gradient(to left, #390b65 2%, #1b1d92 40%, #160266 70%, #000000 100%);
-    --card-bg-dark: #2c2c54;
+    --card-bg-dark: #010154;
     --text-color-dark: #ffffff;
     --heading-color-dark: #ffcc00;
     --accent-color-dark: #ff6f61;
@@ -28,9 +28,9 @@
 
 .theme-haein {
     --bg-color-dark: linear-gradient(to bottom, #3a3128 2%, #4c3d27 40%, #845d25 70%, #be892d 100%);
-    --card-bg-dark: #ffffff;
+    --card-bg-dark: #845d25;
     --text-color-dark: #f8f3f3;
-    --heading-color-dark: #ffd650;
+    --heading-color-dark: #ffffff;
     --accent-color-dark: #794500;
     --border-color-dark: #dddddd;
     --gradient-start-dark: #ffffff;
@@ -47,7 +47,7 @@
 html, body {
     height: 100%;
     width: 100%;
-    overflow-x: hidden;
+    overflow: hidden;
 }
 
 body {
@@ -75,7 +75,7 @@ body {
 #character-main-image {
     position: absolute;
     bottom: 0;
-    left: 43%;
+    left: 45%;
     transform: translateX(-50%);
     width: 100%;
     max-width: 1340px;
@@ -85,7 +85,7 @@ body {
     opacity: 1;
     pointer-events: none; /* Allows clicks to go through */
     display: block;
-    z-index: 9; /* High enough to be over the body content, but below the *full* header */
+    z-index: 1; /* High enough to be over the body content, but below the *full* header */
 }
 
 /* Solid Background Overlay for the Character Image */
@@ -98,7 +98,7 @@ body {
     background: var(--bg-color-dark);
     background-size: cover;
     background-position: center;
-    z-index: -1; /* Send it behind everything */
+    z-index: -2; /* Send it behind everything */
     transition: background 0.5s ease-in-out;
     pointer-events: none;
 }
@@ -114,7 +114,7 @@ body {
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 9999; /* HIGHEST: To ensure clickability of header content and to "contain" the line */
+    z-index: 100; /* HIGHEST: To ensure clickability of header content and to "contain" the line */
 }
 
 /* Navigation - No specific changes needed here */
@@ -230,28 +230,26 @@ body {
     align-items: center;
     justify-content: center;
     position: relative;
-    top:4em;
+    top:3em;
     right:9em;
-    overflow: hidden;
-    z-index: 15;
+    z-index: 3; /* Above the character image but below the header */
+     /* Prevents overflow issues */
 }
 
 .character-display {
     display: flex;
     align-items: flex-start;
     justify-content: space-around;
-    width: 90%;
-    max-width: 1100px;
+    width: 60%;
+    max-width: 1500px;
     position: relative;
-    z-index: 10;
 }
 
 .character-info {
     flex-basis: 45%;
     border-radius: 15px;
-    position: relative; /* Keep this as it establishes a stacking context */
+    position: relative;
     right:20em;
-    z-index: 10; /* CHANGE THIS: Make it higher than the image's z-index */
     background-color: transparent;
     color: var(--text-color-dark);
 }
@@ -270,11 +268,12 @@ body {
 
 .character-name .korean-name {
     position: relative;
-    top:-0.5em;
+    bottom:0.1em;
     font-size: 1.8rem;
     color: white;
     font-weight: 700;
     opacity: 0.7;
+    display: block;
 }
 
 .character-about-placeholder {
@@ -283,7 +282,6 @@ body {
     margin-top: 1.5rem;
     text-align: justify; /* This aligns the ends of the lines */
     position: relative;
-    z-index: 10;
 }
 
 .social-icons {
@@ -311,15 +309,6 @@ body {
     z-index: 5;
 }
 
-#about-section {
-    position: relative;
-    right:5em;
-    padding: 2rem;
-    margin-top: 2rem;
-    border-radius: 15px;
-    z-index: 5;
-}
-
 .nav-extension-line {
   position: absolute;
   top: 67px; /* Adjust to align just below your nav bar */
@@ -327,7 +316,7 @@ body {
   width: 600px; /* Adjust to match where your character image ends */
   height: 2px;
   background-color: rgba(255, 255, 255, 0.76);
-  z-index: 5;
+  z-index: -2;
 }
 
 #rank-toggle {
@@ -370,10 +359,10 @@ body {
   pointer-events: none;
 }
 
-.glow-S {
+.theme-haein #rank-toggle .glow-s {
     font-family: 'Lakki Reddy', cursive;
     font-size: 5rem;
-    color: #160266;
+    color: var(--heading-color-dark);
     transform: skewX(-5deg) rotate(-2deg);
     text-shadow:
         0 0 10px #390b65,
@@ -381,6 +370,78 @@ body {
         0 0 40px #160266,
         0 0 60px #000000;
 }
+
+/* ABOUT DRAWER STYLES */
+#about-container {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 260px;
+    height: 100%;
+    background-color: var(--card-bg-dark);
+    color: white;
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in-out;
+    z-index: 9999;
+}
+
+#about-container.open {
+    transform: translateX(0%);
+}
+
+#about-toggle-tab {
+    position: absolute;
+    bottom: 76%;
+    left: -120px;
+    color: #fff;
+    padding: 10px 16px;
+    font-weight: bold;
+    border-radius: 10px 10px 10px 10px;
+    cursor: pointer;
+    writing-mode: vertical-rl;
+    text-orientation: mixed;
+    transform:rotate(270deg);
+}
+
+#about-toggle-tab i {
+    display: inline-block;
+    margin-left: 8px;
+    transition: transform 0.3s ease;
+}
+
+#about-container.open #about-toggle-tab i {
+    transform: rotate(268deg); /* open = pointing left */
+}
+
+#about-dropdown {
+    padding: 20px;
+    overflow-y: auto;
+    height: 100%;
+}
+
+.about-item {
+    margin-bottom: 20px;
+}
+
+.about-item h4 {
+    font-size: 14px;
+    color: var(--text-color-dark);
+    margin-bottom: 4px;
+}
+
+.about-item p {
+    font-size: 13px;
+    color: #e5e7eb;
+}
+
+.theme-transition {
+    transition: all 0.6s ease;
+}
+
+
+
+
+
 
 
 

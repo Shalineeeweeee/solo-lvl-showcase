@@ -16,7 +16,7 @@
             <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Solo Leveling Logo" class="logo">
             <ul>
                 <li><a href="#" class="nav-item">Home</a></li>
-                <li><a href="#" class="nav-item">Characters</a></li>
+                <li><a href="/character" class="nav-item">Characters</a></li>
                 <li><a href="#" class="nav-item">Help</a></li>
             </ul>
             <button id="sign">Sign Up</button>
@@ -53,13 +53,40 @@
                     <div class="progress-bar"></div>
                 </div>
             </div>
-
-            <aside id="about-section">
-                <h3>ABOUT</h3>
-                <p>This section will contain more in-depth information or links about the character or the Solo Leveling series.</p>
-            </aside>
-        </main>
+            </div>
+        </div>
     </div>
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</div>
+<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+<!-- ABOUT Side Drawer -->
+<div id="about-container">
+    <div id="about-toggle-tab">ABOUT <i id="chevron-icon" class="fas fa-chevron-lefts"></i></div>
+    <div id="about-dropdown">
+        <div class="about-item">
+            <h4>AFFILIATION</h4>
+            <p>Vice-Guild Master of the Hunters Guild.</p>
+        </div>
+        <div class="about-item">
+            <h4>STATUS</h4>
+            <p>S-Rank Hunter with top-tier sword skills.</p>
+        </div>
+        <div class="about-item">
+            <h4>RELATIONSHIPS</h4>
+            <p>Has a bond with Sung Jin-Woo, grows throughout the story.</p>
+        </div>
+        <div class="about-item">
+            <h4>SKILLS</h4>
+            <p>Incredible swordsmanship, heightened senses.</p>
+        </div>
+        <div class="about-item">
+            <h4>TROOPS</h4>
+            <p>Operates mostly solo; doesn't lead summoned troops.</p>
+        </div>
+        <div class="about-item">
+            <h4>WEAPON & EQS</h4>
+            <p>Wields a magical sword with radiant power.</p>
+        </div>
+    </div>
+</div>
 </body>
 </html>
