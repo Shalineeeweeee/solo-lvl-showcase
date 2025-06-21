@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+
+{% block title %}Sign Up | Solo Leveling{% endblock %}
+
+{% block content %}
+<section class="auth-container">
+    <h2>Sign Up</h2>
+    {% if error %}<p class="error">{{ error }}</p>{% endif %}
+    <form method="POST" action="/signup">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+
+        <button type="submit">Sign Up</button>
+        <p class="alt-link">Already have an account? <a href="/login">Login here</a>.</p>
+    </form>
+</section>
+{% endblock %}
