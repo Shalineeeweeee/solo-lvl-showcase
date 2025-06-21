@@ -526,6 +526,42 @@ body {
   text-decoration: underline;
 }
 
+.auth-container {
+  max-width: 400px;
+  margin: 80px auto;
+  background: #0a0a0a;
+  color: white;
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.auth-container input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 8px;
+  margin-bottom: 15px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  background: #1c1c1c;
+  color: white;
+}
+
+.auth-container button {
+  background: #7b4fdd;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-container .alt-link {
+  margin-top: 15px;
+  font-size: 0.9em;
+}
+
+
 
 
 

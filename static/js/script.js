@@ -67,7 +67,7 @@ function updateCharacterInfo(characterKey) {
                 mainImageElement.onload = () => {
                     mainImageElement.style.opacity = 1;
                 };
-            }, 200);
+            }, 200);d
         }
 
         applyTheme(data.theme);
