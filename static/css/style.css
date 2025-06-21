@@ -170,6 +170,7 @@ body {
     left: 32em;
     bottom: 2.5em;
     z-index: 1;
+    text-decoration: none;
 }
 
 #sign:hover {
@@ -464,7 +465,6 @@ body {
 .korean-name {
   font-size: 1.2rem;
   opacity: 0.7;
-  font-style: italic;
 }
 
 .profile-title {
@@ -579,6 +579,64 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+}
+
+.auth-container {
+  max-width: 400px;
+  margin: 100px auto;
+  background: rgba(0, 0, 0, 0.85);  /* Dark semi-transparent box */
+  color: white;
+  padding: 2rem;
+  border-radius: 12px;
+  box-shadow: 0 0 25px rgba(0,0,0,0.5);
+  -webkit-backdrop-filter: blur(8px);
+  backdrop-filter: blur(8px);
+}
+
+.auth-container input {
+  width: 100%;
+  padding: 10px;
+  margin-top: 10px;
+  margin-bottom: 15px;
+  border: 1px solid #888;
+  border-radius: 5px;
+  background: #1a1a1a;
+  color: white;
+}
+
+.auth-container button {
+  background: #7b4fdd;
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.auth-container .alt-link {
+  margin-top: 15px;
+  font-size: 0.9em;
+  text-align: center;
+}
+
+.theme-jinwoo #rank-toggle .glow-s {
+    font-family: 'Lakki Reddy', cursive;
+    font-size: 5rem;
+    color: #fae280;
+    transform: skewX(-5deg) rotate(-2deg);
+    text-shadow:
+        0 0 10px #ffdd55,
+        0 0 20px #ffaa00,
+        0 0 40px #ff8800,
+        0 0 60px #ff6600;
+}
+
+
 
 
 
