@@ -493,6 +493,39 @@ body {
   border-radius: 8px;
 }
 
+#character-selector {
+  position: fixed;
+  top: 0;
+  right: 0;
+  width: 300px;
+  height: 100vh;
+  background-color: #1a1a1a;
+  color: white;
+  padding: 20px;
+  overflow-y: auto;
+  z-index: 1000;
+  transform: translateX(100%);
+  transition: transform 0.3s ease-in-out;
+}
+
+#character-selector.show {
+  transform: translateX(0);
+}
+
+#character-selector h2 {
+  margin-bottom: 10px;
+}
+
+#character-list li {
+  list-style: none;
+  margin: 10px 0;
+  cursor: pointer;
+}
+
+#character-list li:hover {
+  text-decoration: underline;
+}
+
 
 
 
