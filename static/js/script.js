@@ -67,7 +67,7 @@ function updateCharacterInfo(characterKey) {
                 mainImageElement.onload = () => {
                     mainImageElement.style.opacity = 1;
                 };
-            }, 200);d
+            }, 200);
         }
 
         applyTheme(data.theme);
@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ABOUT Dropdown Toggle
+    // ABOUT Dropdown (old logic, optional if not used)
     const aboutToggle = document.getElementById("about-toggle");
     const aboutDropdown = document.getElementById("about-dropdown");
 
@@ -110,7 +110,7 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ABOUT Tab Toggle with Chevron Direction
+    // ABOUT Tab Toggle with Chevron
     const aboutContainer = document.getElementById("about-container");
     const aboutToggleTab = document.getElementById("about-toggle-tab");
     const chevronIcon = document.getElementById("chevron-icon");
@@ -123,6 +123,20 @@ document.addEventListener("DOMContentLoaded", () => {
         });
         aboutContainer.classList.remove("open"); // Start closed
     }
+
+    // Smooth scroll for anchor links
+    const anchorLinks = document.querySelectorAll('a[href^="#"]');
+    anchorLinks.forEach(link => {
+        link.addEventListener("click", function (e) {
+            e.preventDefault();
+            const targetId = this.getAttribute("href").substring(1);
+            const targetElement = document.getElementById(targetId);
+            if (targetElement) {
+                targetElement.scrollIntoView({ behavior: "smooth" });
+            }
+        });
+    });
 });
+
 
 

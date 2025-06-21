@@ -561,6 +561,26 @@ body {
   font-size: 0.9em;
 }
 
+.auth-container {
+  max-width: 400px;
+  margin: 80px auto;
+  background: var(--card-bg-dark);
+  color: var(--text-color-dark);
+  padding: 2rem;
+  border-radius: 10px;
+  box-shadow: 0 0 20px rgba(0,0,0,0.3);
+}
+
+.auth-container button {
+  background: var(--accent-color-dark);
+  color: white;
+  padding: 10px 20px;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+
 
 
 

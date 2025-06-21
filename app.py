@@ -80,3 +80,15 @@ def get_characters():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+from flask import Flask, render_template, request, redirect, url_for, session, flash
+
+app.secret_key = 'your-secret-key'
+
+@app.route('/signup', methods=['GET', 'POST'])
+def signup():
+    if request.method == 'POST':
+        # Your signup logic here (store to DB etc.)
+        session['user'] = request.form['username']
+        return redirect(url_for('index'))  # This auto-closes the signup page
+    return render_template('signup.html')

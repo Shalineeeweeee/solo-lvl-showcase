@@ -1,33 +1,60 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>{% block title %}Solo Leveling{% endblock %}</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Solo Leveling Showcase{% endblock %}</title>
+
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script defer src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
 <body>
-    <header>
-        <nav>
-            <a href="/">Solo Leveling</a>
-            <a href="/">Home</a>
-            <a href="/character">Characters</a>
-            <a href="/about">About</a>
-            <a href="/login">Login</a>
-            <a href="/signup">Sign Up</a>
+    <!-- Background Overlay -->
+    <div id="character-background-overlay"></div>
+
+    <!-- Optional Nav (can hide with a context variable) -->
+    {% if not hide_nav %}
+    <header id="main-header">
+        <nav id="main-nav">
+            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Solo Leveling Logo" class="logo">
+            <ul>
+                <li><a href="/" class="nav-item">Home</a></li>
+                <li><a href="/character.html" class="nav-item">Characters</a></li>
+                <li><a href="#" class="nav-item">Help</a></li>
+            </ul>
+            <a href="/signup"><button id="sign">Sign Up</button></a>
+            <div class="search-container">
+                <button type="submit" class="search-button" title="Search">
+                    <i class="fas fa-search"></i>
+                </button>
+                <input type="text" placeholder="Search..." class="search-input">
+            </div>
         </nav>
-        <!-- Optional theme toggle -->
-        <button id="theme-toggle">🌗</button>
     </header>
+    {% endif %}
 
-    <main>
+    <!-- Main Content -->
+    <div id="app-container">
         {% block content %}{% endblock %}
-    </main>
+    </div>
 
-    <footer>
-        <p>© 2025 Solo Leveling Showcase. Built by Shalinee.</p>
-    </footer>
+    <!-- Theme Setup Script -->
+    <script>
+        document.addEventListener("DOMContentLoaded", () => {
+            const savedTheme = localStorage.getItem("selectedTheme") || "jinwoo";
+            document.body.classList.add(`theme-${savedTheme}`);
+
+            const bgOverlay = document.getElementById("character-background-overlay");
+            if (bgOverlay) {
+                const style = getComputedStyle(document.body);
+                bgOverlay.style.background = style.getPropertyValue("--bg-color-dark");
+            }
+        });
+    </script>
+
+    <!-- JS -->
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
+
 
