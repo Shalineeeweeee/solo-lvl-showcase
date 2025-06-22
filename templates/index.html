@@ -1,95 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solo Leveling Showcase</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    <script>
-    // Apply saved theme class as early as possible
-    const savedTheme = localStorage.getItem("selectedTheme") || "jinwoo";
-    document.documentElement.classList.add(`theme-${savedTheme}`);
-    </script>
-</head>
-<body class="theme-{{ theme_class or 'jinwoo' }}">
-    <div id="character-background-overlay" class="theme-jinwoo"></div>
-    <img id="character-main-image" src="{{ url_for('static', filename='img/sung-jin-woo-main.png') }}" alt="Sung Jin Woo">
+{% extends "base.html" %}
 
-    <header id="main-header">
-        <nav id="main-nav">
-            <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Solo Leveling Logo" class="logo">
-            <ul>
-                <li><a href="#" class="nav-item">Home</a></li>
-                <li><a href="/character.html" class="nav-item">Characters</a></li>
-                <li><a href="#" class="nav-item">Help</a></li>
-            </ul>
-           <a href="/signup"><button id="sign">Sign Up</button></a>
-            <div class="search-container">
-                <button type="submit" class="search-button" title="Search">
-                    <i class="fas fa-search"></i>
-                </button>
-                <input type="text" placeholder="Search..." class="search-input">
+{% block title %}Solo Leveling Showcase{% endblock %}
+
+{% block content %}
+<!-- DEBUG: user = {{ user }} -->
+
+<!-- Character BG Overlay + Image -->
+<div id="character-background-overlay"></div>
+<img id="character-main-image" src="{{ url_for('static', filename='img/sung-jin-woo-main.png') }}" alt="Sung Jin Woo">
+
+<!-- Character Showcase Section -->
+<main id="character-showcase">
+    <div class="character-display">
+        <div class="character-info">
+            <div id="rank-toggle" title="Toggle Theme">
+                <span id="rank-symbol" class="glow-s">S</span>
+                <span class="rank-text"> RANK</span>
             </div>
-        </nav>
-    </header>
-    <div class="nav-extension-line"></div>
-
-    <div id="app-container">
-        <main id="character-showcase">
-            <div class="character-display">
-                <div class="character-info">
-                    <div id="rank-toggle" title="Toggle Theme">
-                        <span id="rank-symbol" class="glow-s">S</span>
-                        <span class="rank-text"> RANK</span>
-                    </div>
-                    <h2 class="character-title">Shadow Monarch A.K.A</h2>
-                    <h1 class="character-name">SUNG JIN WOO <span class="korean-name">(성진우)</span></h1>
-                    <div class="character-about-placeholder">
-                        <p>Sung Jin-Woo is the main character of Solo Leveling. He starts as the weakest hunter but gains a unique ability to level up after surviving a deadly dungeon. With his new powers, he becomes the Shadow Monarch, commanding an army of shadows. Jin-Woo transforms from a powerless fighter into the world’s strongest hunter, protecting his loved ones and battling powerful enemies.</p>
-                    </div>
-
-                    <div class="social-icons">
-                        <a href="#"><img src="{{ url_for('static', filename='img/icon-twitter.png') }}" alt="Twitter"></a>
-                        <a href="#"><img src="{{ url_for('static', filename='img/icon-instagram.png') }}" alt="Instagram"></a>
-                    </div>
-                </div>
-                <div class="media-controls">
-                    <div class="progress-bar"></div>
-                </div>
+            <h2 class="character-title">Shadow Monarch A.K.A</h2>
+            <h1 class="character-name">SUNG JIN WOO <span class="korean-name">(성진우)</span></h1>
+            <div class="character-about-placeholder">
+                <p>Sung Jin-Woo is the main character of Solo Leveling. He starts as the weakest hunter but gains a unique ability to level up after surviving a deadly dungeon. With his new powers, he becomes the Shadow Monarch, commanding an army of shadows. Jin-Woo transforms from a powerless fighter into the world’s strongest hunter, protecting his loved ones and battling powerful enemies.</p>
+            </div>
+            <div class="social-icons">
+                <a href="#"><img src="{{ url_for('static', filename='img/icon-twitter.png') }}" alt="Twitter"></a>
+                <a href="#"><img src="{{ url_for('static', filename='img/icon-instagram.png') }}" alt="Instagram"></a>
             </div>
         </div>
-    </main>
-<script src="{{ url_for('static', filename='js/script.js') }}"></script>
+        <div class="media-controls">
+            <div class="progress-bar"></div>
+        </div>
+    </div>
+</main>
+
 <!-- ABOUT Side Drawer -->
 <div id="about-container">
     <div id="about-toggle-tab">ABOUT <i id="chevron-icon" class="fas fa-chevron-left"></i></div>
     <div id="about-dropdown">
-        <div class="about-item">
-            <h4>AFFILIATION</h4>
-            <p>Vice-Guild Master of the Hunters Guild.</p>
-        </div>
-        <div class="about-item">
-            <h4>STATUS</h4>
-            <p>S-Rank Hunter with top-tier sword skills.</p>
-        </div>
-        <div class="about-item">
-            <h4>RELATIONSHIPS</h4>
-            <p>Has a bond with Sung Jin-Woo, grows throughout the story.</p>
-        </div>
-        <div class="about-item">
-            <h4>SKILLS</h4>
-            <p>Incredible swordsmanship, heightened senses.</p>
-        </div>
-        <div class="about-item">
-            <h4>TROOPS</h4>
-            <p>Operates mostly solo; doesn't lead summoned troops.</p>
-        </div>
-        <div class="about-item">
-            <h4>WEAPON & EQS</h4>
-            <p>Wields a magical sword with radiant power.</p>
-        </div>
+        <div class="about-item"><h4>AFFILIATION</h4><p>Vice-Guild Master of the Hunters Guild.</p></div>
+        <div class="about-item"><h4>STATUS</h4><p>S-Rank Hunter with top-tier sword skills.</p></div>
+        <div class="about-item"><h4>RELATIONSHIPS</h4><p>Has a bond with Sung Jin-Woo, grows throughout the story.</p></div>
+        <div class="about-item"><h4>SKILLS</h4><p>Incredible swordsmanship, heightened senses.</p></div>
+        <div class="about-item"><h4>TROOPS</h4><p>Operates mostly solo; doesn't lead summoned troops.</p></div>
+        <div class="about-item"><h4>WEAPON & EQS</h4><p>Wields a magical sword with radiant power.</p></div>
     </div>
 </div>
-</body>
-</html>
+{% endblock %}

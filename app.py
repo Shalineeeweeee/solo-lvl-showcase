@@ -30,32 +30,32 @@ def home():
 def character():
     return render_template('character.html', user=session.get('user'), theme_class=session.get('theme', 'theme-jinwoo'))
 
-@app.route('/signup', methods=['GET', 'POST'])
-def signup():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-        users = load_users()
-        if username in users:
-            return render_template('signup.html', error="Username already exists", hide_nav=True, theme_class=session.get('theme', 'theme-jinwoo'))
-        users[username] = password
-        save_users(users)
-        session['user'] = username
-        return redirect(url_for('home'))
-    return render_template('signup.html', hide_nav=True, theme_class=session.get('theme', 'theme-jinwoo'))
-
-@app.route('/login', methods=['GET', 'POST'])
+@app.route("/login", methods=["GET", "POST"])
 def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
         users = load_users()
         if username in users and users[username] == password:
-            session['user'] = username
-            return redirect(url_for('home'))
+            session["user"] = username  # <-- important
+            return redirect(url_for("home"))
         else:
-            return render_template('login.html', error="Invalid credentials", hide_nav=True, theme_class=session.get('theme', 'theme-jinwoo'))
-    return render_template('login.html', hide_nav=True, theme_class=session.get('theme', 'theme-jinwoo'))
+            return render_template("login.html", error="Invalid credentials", hide_nav=True)
+    return render_template("login.html", hide_nav=True)
+
+@app.route("/signup", methods=["GET", "POST"])
+def signup():
+    if request.method == "POST":
+        username = request.form["username"]
+        password = request.form["password"]
+        users = load_users()
+        if username in users:
+            return render_template("signup.html", error="Username already exists", hide_nav=True)
+        users[username] = password
+        save_users(users)
+        session["user"] = username  # <-- important
+        return redirect(url_for("home"))
+    return render_template("signup.html", hide_nav=True)
 
 @app.route('/logout')
 def logout():
@@ -83,6 +83,14 @@ def set_theme():
     session["theme"] = f"theme-{theme}"
     return '', 204
 
+@app.context_processor
+def inject_user():
+    return dict(user=session.get('user'))
+
+
 if __name__ == '__main__':
     app.run(debug=True)
+
+
+
 

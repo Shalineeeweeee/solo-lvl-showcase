@@ -1,40 +1,26 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Select Character | Solo Leveling</title>
-  <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-</head>
-<body class="theme-jinwoo">
-  <header>
-    <nav id="main-nav">
-      <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Solo Leveling Logo" class="logo">
-      <ul>
-        <li><a href="/" class="nav-item">Home</a></li>
-        <li><a href="/characters" class="nav-item active">Characters</a></li>
-        <li><a href="#" class="nav-item">Help</a></li>
-      </ul>
-      <button id="sign">Sign Up</button>
-    </nav>
-  </header>
+{% extends "base.html" %}
 
-  <main id="character-selector-page">
-    <h1>Select a Character</h1>
-    <div id="character-selector-grid">
-      {% for key, data in character_data.items() %}
-      <div class="character-card" data-key="{{ key }}">
-        <img src="{{ url_for('static', filename=data.image) }}" alt="{{ data.name }}">
-        <h3>{{ data.name }}</h3>
-        <p>{{ data.title }}</p>
-        <a href="/character/{{ key }}" class="view-button">View</a>
-      </div>
-      {% endfor %}
+{% block title %}Select Character | Solo Leveling{% endblock %}
+
+
+{% block content %}
+<main id="character-selector-page" class="character-selector-page">
+  <h1 class="character-selector-title">Select a Character</h1>
+  <div id="character-selector-grid" class="character-selector-grid">
+    {% for key, data in character_data.items() %}
+    <div class="character-card" data-key="{{ key }}">
+      <img src="{{ url_for('static', filename=data.image) }}" alt="{{ data.name }}" class="character-image">
+      <h3 class="character-name">{{ data.name }}</h3>
+      <p>{{ data.title }}</p>
+      <a href="/character/{{ key }}" class="view-button">View</a>
+      <a href="/character/{{ key }}" class="view-button view-button-accent">View</a>
     </div>
-  </main>
+    {% endfor %}
+  </div>
+</main>
+return render_template('index.html')
+{% endblock %}
 
-  <script>
-    // You can handle clicks here or let Flask route to /character/<key>
-  </script>
-</body>
-</html>
+
+
+

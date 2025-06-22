@@ -30,11 +30,10 @@ function applyTheme(theme) {
         bgOverlayElement.style.background = getComputedStyle(document.body).getPropertyValue("--bg-color-dark");
     }
 
-    // Add smooth transition
     document.body.classList.add("theme-transition");
     setTimeout(() => {
         document.body.classList.remove("theme-transition");
-    }, 600); // match this with your CSS transition duration
+    }, 600);
 }
 
 function updateCharacterInfo(characterKey) {
@@ -42,7 +41,6 @@ function updateCharacterInfo(characterKey) {
     if (!data) return;
 
     setTimeout(() => {
-        // Name
         const charNameElement = document.querySelector(".character-name");
         const koreanNameElement = document.querySelector(".korean-name");
         if (charNameElement && koreanNameElement) {
@@ -50,15 +48,12 @@ function updateCharacterInfo(characterKey) {
             koreanNameElement.textContent = data.korean;
         }
 
-        // Title
         const charTitleElement = document.querySelector(".character-title");
         if (charTitleElement) charTitleElement.textContent = data.title;
 
-        // Description
         const aboutPlaceholderElement = document.querySelector(".character-about-placeholder p");
         if (aboutPlaceholderElement) aboutPlaceholderElement.textContent = data.description;
 
-        // Image
         const mainImageElement = document.getElementById("character-main-image");
         if (mainImageElement) {
             mainImageElement.style.opacity = 0;
@@ -78,8 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const savedTheme = localStorage.getItem("selectedTheme") || "jinwoo";
     currentCharacter = savedTheme === "jinwoo" ? "sung-jin-woo" : "cha-hae-in";
     updateCharacterInfo(currentCharacter);
+    applyTheme(savedTheme);
 
-    // Theme toggle logic
     const rankToggle = document.getElementById("rank-toggle");
     const rankSymbol = document.getElementById("rank-symbol");
     if (rankToggle) {
@@ -87,14 +82,12 @@ document.addEventListener("DOMContentLoaded", () => {
             currentCharacter = currentCharacter === "sung-jin-woo" ? "cha-hae-in" : "sung-jin-woo";
             updateCharacterInfo(currentCharacter);
 
-            // Force redraw for smooth UI update
             rankSymbol.style.display = 'none';
             rankSymbol.offsetHeight;
             rankSymbol.style.display = 'inline-block';
         });
     }
 
-    // ABOUT Dropdown (old logic, optional if not used)
     const aboutToggle = document.getElementById("about-toggle");
     const aboutDropdown = document.getElementById("about-dropdown");
 
@@ -110,7 +103,6 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
-    // ABOUT Tab Toggle with Chevron
     const aboutContainer = document.getElementById("about-container");
     const aboutToggleTab = document.getElementById("about-toggle-tab");
     const chevronIcon = document.getElementById("chevron-icon");
@@ -121,10 +113,9 @@ document.addEventListener("DOMContentLoaded", () => {
             chevronIcon.classList.toggle("fa-chevron-left");
             chevronIcon.classList.toggle("fa-chevron-right");
         });
-        aboutContainer.classList.remove("open"); // Start closed
+        aboutContainer.classList.remove("open");
     }
 
-    // Smooth scroll for anchor links
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     anchorLinks.forEach(link => {
         link.addEventListener("click", function (e) {
@@ -136,6 +127,23 @@ document.addEventListener("DOMContentLoaded", () => {
             }
         });
     });
+});
+
+// Profile dropdown menu toggle
+function toggleProfileMenu() {
+    const menu = document.getElementById("profile-menu");
+    if (menu) {
+        menu.classList.toggle("show");
+    }
+}
+
+// Close the profile menu if user clicks outside
+window.addEventListener("click", function (e) {
+    const menu = document.getElementById("profile-menu");
+    const icon = document.querySelector(".profile-icon");
+    if (menu && icon && !menu.contains(e.target) && !icon.contains(e.target)) {
+        menu.classList.remove("show");
+    }
 });
 
 

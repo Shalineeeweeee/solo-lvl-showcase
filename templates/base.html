@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -7,34 +8,37 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-<body>
+<body class="{{ theme_class or 'theme-jinwoo' }}">
+
+ DEBUG: user = {{ user }}
 
 <!-- Background Overlay -->
 <div id="character-background-overlay"></div>
 
-<!-- Optional Nav -->
+
 {% if not hide_nav %}
 <header id="main-header">
     <nav id="main-nav">
         <img src="{{ url_for('static', filename='img/logo.png') }}" alt="Solo Leveling Logo" class="logo">
         <ul>
             <li><a href="/" class="nav-item">Home</a></li>
-            <li><a href="/character.html" class="nav-item">Characters</a></li>
-            <li><a href="#" class="nav-item">Help</a></li>
+            <li><a href="/character" class="nav-item">Characters</a></li>
+            <li><a href="/about" class="nav-item">Help</a></li>
         </ul>
 
-        <!-- Dynamic Sign Up/Profile Button -->
-        {% if session.get('user') %}
-            <div id="profile-icon">
-                <a href="/profile" title="Your Profile">
-                    <img src="{{ url_for('static', filename='img/profile-icon.png') }}" alt="Profile" style="height: 2.5em; border-radius: 50%;">
-                </a>
-            </div>
+        {% if user %}
+            <div class="profile-dropdown">
+                <img src="{{ url_for('static', filename='img/profile.png') }}" alt="Profile" class="profile-icon" onclick="toggleProfileMenu()">
+    <div id="profile-menu" class="dropdown-menu">
+        <a href="/profile">View Profile</a>
+        <a href="/logout">Log Out</a>
+    </div>
+</div>
+
         {% else %}
             <a href="/signup"><button id="sign">Sign Up</button></a>
         {% endif %}
 
-        <!-- Search -->
         <div class="search-container">
             <button type="submit" class="search-button" title="Search">
                 <i class="fas fa-search"></i>
@@ -45,26 +49,7 @@
 </header>
 {% endif %}
 
-{% if not hide_nav %}
-<header id="main-header">
-    <nav id="main-nav">
-        <img src="{{ url_for('static', filename='img/logo.png') }}" class="logo" alt="Solo Leveling Logo">
-        <ul>
-            <li><a href="/" class="nav-item">Home</a></li>
-            <li><a href="/character" class="nav-item">Characters</a></li>
-            <li><a href="/about" class="nav-item">About</a></li>
-        </ul>
-        {% if not session.get('user') %}
-            <a href="/signup"><button id="sign">Sign Up</button></a>
-        {% else %}
-            <a href="/profile"><img src="{{ url_for('static', filename='img/profile-icon.png') }}" class="profile-icon" alt="Profile"></a>
-        {% endif %}
-    </nav>
-</header>
-{% endif %}
-
-
-<!-- Main App Container -->
+<!-- Main Content -->
 <div id="app-container">
     {% block content %}{% endblock %}
 </div>
@@ -74,17 +59,19 @@
     document.addEventListener("DOMContentLoaded", () => {
         const savedTheme = localStorage.getItem("selectedTheme") || "jinwoo";
         document.body.classList.add(`theme-${savedTheme}`);
-
         const bgOverlay = document.getElementById("character-background-overlay");
         if (bgOverlay) {
             const style = getComputedStyle(document.body);
             bgOverlay.style.background = style.getPropertyValue("--bg-color-dark");
         }
+        fetch(`/set-theme?theme=${savedTheme}`);
     });
 </script>
 
-<!-- JS -->
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
+
+
+
 
