@@ -10,7 +10,6 @@
 </head>
 <body class="{{ theme_class or 'theme-jinwoo' }}">
 
- DEBUG: user = {{ user }}
 
 <!-- Background Overlay -->
 <div id="character-background-overlay"></div>
@@ -36,7 +35,7 @@
 </div>
 
         {% else %}
-            <a href="/signup"><button id="sign">Sign Up</button></a>
+            <a href="/signup" id="sign">Sign Up</a>
         {% endif %}
 
         <div class="search-container">
