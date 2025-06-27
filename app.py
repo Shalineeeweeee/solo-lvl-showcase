@@ -14,15 +14,9 @@ def home():
     return render_template('index.html', user=session.get('user'), theme_class=session.get('theme', 'theme-jinwoo'))
 
 
-@app.route('/character')
-def character_selector():
-    return render_template(
-        "character_selector.html",
-        hide_nav=True,
-        characters=characters,
-        user=session.get("user"),
-        theme_class=session.get("theme", "theme-jinwoo")
-    )
+@app.route("/character")
+def character():
+    return render_template("character_selector.html", characters=characters, default_key="sung-jin-woo")
 
 
 
@@ -60,6 +54,13 @@ def signup():
 def logout():
     session.pop('user', None)
     return redirect(url_for('home'))
+
+@app.route('/set-theme')
+def set_theme():
+    theme = request.args.get("theme")
+    if theme:
+        session['theme'] = theme
+    return '', 204
 
 @app.context_processor
 def inject_user():

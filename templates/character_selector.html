@@ -2,40 +2,69 @@
 {% block title %}Select a Character | Solo Leveling{% endblock %}
 
 {% block content %}
-<div class="slider-wrapper">
-    <h2 class="text-center">Select a Character</h2>
-    <div class="character-slider">
-        {% for key, character in characters.items() %}
-        <div class="character-card" onclick="showCharacter('{{ key }}')">
-            <img src="{{ url_for('static', filename=character.image.lstrip('/static/')) }}" alt="{{ character.name }}">
-            <h3>{{ character.name }}</h3>
-        </div>
-        {% endfor %}
+<div class="character-slider-wrapper">
+  <h2 class="text-center">Select a Character</h2>
+  <div class="character-slider">
+    <button onclick="prevCharacter()">&#10094;</button>
+    <div class="character-card" id="character-card">
+      <img id="char-img" src="" alt="Character Image">
+      <h3 id="char-name">Name</h3>
+      <p id="char-title">Title</p>
+      <p id="char-desc">Description</p>
     </div>
-
-    <div id="character-details" class="character-details hidden">
-        <h2 id="char-name"></h2>
-        <p id="char-korean" class="korean-name"></p>
-        <p id="char-title"></p>
-        <p id="char-description"></p>
-    </div>
+    <button onclick="nextCharacter()">&#10095;</button>
+  </div>
 </div>
 {% endblock %}
 
 {% block script %}
 <script>
-    const charactersData = {{ characters | tojson | safe }};
-    
-    function showCharacter(key) {
-        const char = charactersData[key];
-        if (char) {
-            document.getElementById('character-details').classList.remove('hidden');
-            document.getElementById('char-name').textContent = char.name;
-            document.getElementById('char-korean').textContent = char.korean;
-            document.getElementById('char-title').textContent = char.title;
-            document.getElementById('char-description').textContent = char.description;
-        }
-    }
+  // ✅ RENAME to avoid redeclaration error
+  const characterData = {{ characters | tojson | safe }};
+  const keys = Object.keys(characterData);
+  let currentIndex = keys.indexOf("{{ default_key }}");
+
+  function updateSlider() {
+    const key = keys[currentIndex];
+    const char = characterData[key];
+
+    document.getElementById('char-img').src = char.image;
+    document.getElementById('char-name').textContent = char.name;
+    document.getElementById('char-title').textContent = char.title;
+    document.getElementById('char-desc').textContent = char.description;
+  }
+
+  function prevCharacter() {
+    currentIndex = (currentIndex - 1 + keys.length) % keys.length;
+    updateSlider();
+  }
+
+  function nextCharacter() {
+    currentIndex = (currentIndex + 1) % keys.length;
+    updateSlider();
+  }
+
+  window.onload = updateSlider;
 </script>
 {% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
