@@ -9,6 +9,7 @@ app.secret_key = 'super-secret-key'
 with open('data/characters.json', 'r', encoding='utf-8') as f:
     characters = json.load(f)
 
+
 @app.route('/')
 def home():
     return render_template('index.html', user=session.get('user'), theme_class=session.get('theme', 'theme-jinwoo'))
