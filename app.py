@@ -6,7 +6,7 @@ app = Flask(__name__)
 app.secret_key = 'super-secret-key'
 
 # Load characters
-with open('data/characters.json', 'r', encoding='utf-8') as f:
+with open('static/data/characters.json', 'r', encoding='utf-8') as f:
     characters = json.load(f)
 
 
@@ -26,7 +26,7 @@ def login():
     if request.method == "POST":
         username = request.form["username"]
         password = request.form["password"]
-        with open('data/users.json', 'r') as f:
+        with open('static/data/users.json', 'r') as f:
             users = json.load(f)
         if username in users and users[username] == password:
             session["user"] = username

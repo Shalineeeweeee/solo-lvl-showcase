@@ -1,44 +1,61 @@
 {% extends "base.html" %}
-
-{% block title %}Character Slider | Solo Leveling{% endblock %}
+{% block title %}Select a Character | Solo Leveling{% endblock %}
 
 {% block content %}
-<div class="container mt-5">
-  <h2 class="text-center mb-4">Select a Character</h2>
-  
-  <div class="d-flex justify-content-center align-items-center">
-    <button class="btn btn-outline-primary me-3" onclick="prevCharacter()">&#10094;</button>
+<div class="container text-center my-5">
+  <h2 class="mb-4">Select a Character</h2>
 
-    <div class="card text-center shadow-lg" style="max-width: 400px; min-width: 300px;">
-      <img id="char-img" src="https://via.placeholder.com/400x250" class="card-img-top" alt="Character Image">
+  <div class="d-flex justify-content-center align-items-center mb-5">
+    <button class="btn btn-outline-dark me-3" onclick="prevCharacter()">&#10094;</button>
+
+    <div class="card shadow-lg" style="width: 22rem;" id="character-card">
+      <img id="char-img" src="" class="card-img-top" alt="Character Image" style="height: 300px; object-fit: cover;">
       <div class="card-body">
         <h5 class="card-title" id="char-name">Name</h5>
-        <h6 class="card-subtitle mb-2 text-muted" id="char-korean">(한글이름)</h6>
-        <p class="card-text" id="char-title">Title</p>
-        <p class="card-text" id="char-desc">Description</p>
-        <span class="badge bg-dark" id="char-theme">Theme</span>
+        <h6 id="char-korean" class="text-muted"></h6>
+        <p class="card-text" id="char-title"></p>
+        <p class="card-text" id="char-desc"></p>
+        <span class="badge bg-primary" id="char-theme"></span>
       </div>
     </div>
 
-    <button class="btn btn-outline-primary ms-3" onclick="nextCharacter()">&#10095;</button>
+    <button class="btn btn-outline-dark ms-3" onclick="nextCharacter()">&#10095;</button>
   </div>
 </div>
 {% endblock %}
 
 {% block script %}
 <script>
-const dataUrl = "{{ url_for('static', filename='data/characters.json') }}";
-fetch(dataUrl)
-  .then(response => response.json())
-  .then(data => {
-    // TODO: Use the character data to update the UI
-    console.log(data);
-  })
-  .catch(error => {
-    console.error('Error fetching character data:', error);
-  });
+  const characters = {{ characters | tojson | safe }};
+  const keys = Object.keys(characters);
+  let currentIndex = keys.indexOf("sung-jin-woo");
+
+  function updateSlider() {
+    const key = keys[currentIndex];
+    const char = characters[key];
+
+    document.getElementById('char-img').src = char.image;
+    document.getElementById('char-name').textContent = char.name;
+    document.getElementById('char-korean').textContent = char.korean || "";
+    document.getElementById('char-title').textContent = char.title;
+    document.getElementById('char-desc').textContent = char.description;
+    document.getElementById('char-theme').textContent = `Theme: ${char.theme}`;
+  }
+
+  function prevCharacter() {
+    currentIndex = (currentIndex - 1 + keys.length) % keys.length;
+    updateSlider();
+  }
+
+  function nextCharacter() {
+    currentIndex = (currentIndex + 1) % keys.length;
+    updateSlider();
+  }
+
+  window.onload = updateSlider;
 </script>
 {% endblock %}
+
 
 
 
