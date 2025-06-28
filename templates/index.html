@@ -1,60 +1,48 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Solo Leveling Showcase</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
-    </head>
-<body class="dark-theme">
-    <div id="app-container">
-        <header id="main-header">
-            <div class="logo">Solo Leveling</div>
-            <nav id="main-nav">
-                <ul>
-                    <li><a href="#" class="nav-item">Home</a></li>
-                    <li><a href="#" class="nav-item" id="theme-toggle">Theme</a></li>
-                    <li><a href="#" class="nav-item">Characters</a></li>
-                    <li><a href="#" class="nav-item">Sign Up</a></li>
-                    <li><a href="#" class="nav-item">Log In</a></li>
-                </ul>
-            </nav>
-        </header>
+{% extends "base.html" %}
 
-        <main id="character-showcase">
-            <div class="character-display">
-                <div class="character-info">
-                    <h2 class="character-title">Shadow Monarch A.K.A</h2>
-                    <h1 class="character-name">SUNG JIN WOO <span class="korean-name">(성진우)</span></h1>
-                    <div class="character-about-placeholder">
-                        <p>This is a placeholder for details about Sung Jin Woo. We'll populate this dynamically or add more static content later.</p>
-                        <div class="social-icons">
-                            <a href="#"><img src="{{ url_for('static', filename='img/icon-twitter.png') }}" alt="Twitter"></a>
-                            <a href="#"><img src="{{ url_for('static', filename='img/icon-instagram.png') }}" alt="Instagram"></a>
-                            </div>
-                    </div>
-                </div>
-                <div class="character-image-container">
-                    <img id="character-main-image" src="{{ url_for('static', filename='img/sung-jin-woo-main.png') }}" alt="Sung Jin Woo">
-                </div>
-                <div class="media-controls">
-                    <button class="play-pause">play</button>
-                    <div class="progress-bar"></div>
-                    <button class="volume">house</button>
-                </div>
+{% block title %}Solo Leveling Showcase{% endblock %}
+
+{% block content %}
+<!-- DEBUG: user = {{ user }} -->
+
+<!-- Character BG Overlay + Image -->
+<div id="character-background-overlay"></div>
+<img id="character-main-image" src="{{ url_for('static', filename='img/sung-jin-woo-main.png') }}" alt="Sung Jin Woo">
+
+<!-- Character Showcase Section -->
+<main id="character-showcase">
+    <div class="character-display">
+        <div class="character-info">
+            <div id="rank-toggle" title="Toggle Theme">
+                <span id="rank-symbol" class="glow-s">S</span>
+                <span class="rank-text"> RANK</span>
             </div>
-
-            <aside id="about-section">
-                <h3>ABOUT</h3>
-                <p>This section will contain more in-depth information or links about the character or the Solo Leveling series.</p>
-                </aside>
-        </main>
-
-        <footer id="main-footer">
-            <p>kentziex.</p>
-        </footer>
+            <h2 class="character-title">Shadow Monarch A.K.A</h2>
+            <h1 class="character-name">SUNG JIN WOO <span class="korean-name">(성진우)</span></h1>
+            <div class="character-about-placeholder">
+                <p>Sung Jin-Woo is the main character of Solo Leveling. He starts as the weakest hunter but gains a unique ability to level up after surviving a deadly dungeon. With his new powers, he becomes the Shadow Monarch, commanding an army of shadows. Jin-Woo transforms from a powerless fighter into the world’s strongest hunter, protecting his loved ones and battling powerful enemies.</p>
+            </div>
+            <div class="social-icons">
+                <a href="#"><img src="{{ url_for('static', filename='img/icon-twitter.png') }}" alt="Twitter"></a>
+                <a href="#"><img src="{{ url_for('static', filename='img/icon-instagram.png') }}" alt="Instagram"></a>
+            </div>
+        </div>
+        <div class="media-controls">
+            <div class="progress-bar"></div>
+        </div>
     </div>
+</main>
 
-    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
-</body>
-</html>
+<!-- ABOUT Side Drawer -->
+<div id="about-container">
+    <div id="about-toggle-tab">ABOUT <i id="chevron-icon" class="fas fa-chevron-left"></i></div>
+    <div id="about-dropdown">
+        <div class="about-item"><h4>AFFILIATION</h4><p>Vice-Guild Master of the Hunters Guild.</p></div>
+        <div class="about-item"><h4>STATUS</h4><p>S-Rank Hunter with top-tier sword skills.</p></div>
+        <div class="about-item"><h4>RELATIONSHIPS</h4><p>Has a bond with Sung Jin-Woo, grows throughout the story.</p></div>
+        <div class="about-item"><h4>SKILLS</h4><p>Incredible swordsmanship, heightened senses.</p></div>
+        <div class="about-item"><h4>TROOPS</h4><p>Operates mostly solo; doesn't lead summoned troops.</p></div>
+        <div class="about-item"><h4>WEAPON & EQS</h4><p>Wields a magical sword with radiant power.</p></div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,75 @@
+{% extends "base.html" %}
+{% block title %}Select a Character | Solo Leveling{% endblock %}
+
+{% block content %}
+<div class="container text-center my-5">
+  <h2 class="mb-4">Select a Character</h2>
+
+  <div class="d-flex justify-content-center align-items-center mb-5">
+    <button class="btn btn-outline-dark me-3" onclick="prevCharacter()">&#10094;</button>
+
+    <div class="card shadow-lg" style="width: 22rem;" id="character-card">
+      <img id="char-img" src="" class="card-img-top" alt="Character Image" style="height: 300px; object-fit: cover;">
+      <div class="card-body">
+        <h5 class="card-title" id="char-name">Name</h5>
+        <h6 id="char-korean" class="text-muted"></h6>
+        <p class="card-text" id="char-title"></p>
+        <p class="card-text" id="char-desc"></p>
+        <span class="badge bg-primary" id="char-theme"></span>
+      </div>
+    </div>
+
+    <button class="btn btn-outline-dark ms-3" onclick="nextCharacter()">&#10095;</button>
+  </div>
+</div>
+{% endblock %}
+
+{% block script %}
+<script>
+  const characters = {{ characters | tojson | safe }};
+  const keys = Object.keys(characters);
+  let currentIndex = keys.indexOf("sung-jin-woo");
+
+  function updateSlider() {
+    const key = keys[currentIndex];
+    const char = characters[key];
+
+    document.getElementById('char-img').src = char.image;
+    document.getElementById('char-name').textContent = char.name;
+    document.getElementById('char-korean').textContent = char.korean || "";
+    document.getElementById('char-title').textContent = char.title;
+    document.getElementById('char-desc').textContent = char.description;
+    document.getElementById('char-theme').textContent = `Theme: ${char.theme}`;
+  }
+
+  function prevCharacter() {
+    currentIndex = (currentIndex - 1 + keys.length) % keys.length;
+    updateSlider();
+  }
+
+  function nextCharacter() {
+    currentIndex = (currentIndex + 1) % keys.length;
+    updateSlider();
+  }
+
+  window.onload = updateSlider;
+</script>
+{% endblock %}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,0 +1,29 @@
+<!-- templates/base_auth.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>{% block title %}Auth | Solo Leveling{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+</head>
+<body>
+    {% block content %}
+    {% endblock %}
+</body>
+
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+  const savedTheme = localStorage.getItem("selectedTheme") || "jinwoo";
+  document.body.classList.add(`theme-${savedTheme}`);
+
+  const bgOverlay = document.getElementById("character-background-overlay");
+  if (bgOverlay) {
+    const style = getComputedStyle(document.body);
+    bgOverlay.style.background = style.getPropertyValue("--bg-color-dark");
+  }
+});
+</script>
+
+</html>
+
