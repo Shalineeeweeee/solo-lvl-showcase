@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, redirect, url_for, session, j
 import json
 import os
 
-app = Flask(__name__)
+app = Flask(__name__,static_url_path='/static', static_folder='static')
 app.secret_key = 'super-secret-key'
 
 # Load characters

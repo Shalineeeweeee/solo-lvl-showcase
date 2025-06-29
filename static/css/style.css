@@ -712,6 +712,107 @@ body {
   color: #ccc;
 }
 
+.selector-container {
+    padding: 2rem;
+    color: white;
+    text-align: center;
+  }
+
+  .slider-wrapper {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 1rem;
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+  }
+
+  .nav-arrow {
+    background: none;
+    border: none;
+    font-size: 2.5rem;
+    color: white;
+    cursor: pointer;
+    z-index: 2;
+  }
+
+  .card-slider {
+    display: flex;
+    gap: 1.5rem;
+    overflow: hidden;
+    scroll-behavior: smooth;
+    padding: 1rem 0;
+  }
+
+  .character-card {
+    background-color: transparent;
+    border-radius: 1rem;
+    padding: 1rem;
+    width: 260px;
+    flex-shrink: 0;
+    transition: transform 0.3s ease, border 0.3s ease;
+    border: 2px solid transparent;
+    color: white;
+    text-align: center;
+    cursor: pointer;
+  }
+
+  .character-card img {
+    max-height: 300px;
+    object-fit: contain;
+    margin-bottom: 0.5rem;
+    width: 100%;
+    border-radius: 8px;
+  }
+
+
+
+  .character-card.active {
+    border: 2px solid var(--gradient-end-dark);
+    transform: scale(1.05);
+    background-color: var(--card-bg-dark);
+  }
+
+  .card-description {
+    margin-top: 0.5rem;
+    display: none;
+    font-size: 0.95rem;
+    text-align: left;
+  }
+
+  .character-card.active .card-description {
+    display: block;
+  }
+
+  /* Hide scrollbars but allow scrolling with arrows */
+  .card-slider::-webkit-scrollbar {
+    display: none;
+  }
+  .card-slider {
+    -ms-overflow-style: none;
+    /* scrollbar-width removed for better compatibility */
+  }
+
+  .card-slider {
+  display: flex;
+  gap: 1.5rem;
+  overflow: hidden;
+  scroll-behavior: smooth;
+  padding: 1rem 2rem; /* Add horizontal padding here */
+  box-sizing: content-box; /* Important to keep padding inside scroll area */
+}
+
+
+  @media (max-width: 768px) {
+    .character-card {
+      width: 220px;
+    }
+
+    .character-card img {
+      max-height: 240px;
+    }
+  }
 
 
 

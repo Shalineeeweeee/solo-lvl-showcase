@@ -4,7 +4,7 @@
     "korean": "(성진우)",
     "title": "Shadow Monarch A.K.A",
     "description": "Sung Jin-Woo is the main character of Solo Leveling. He starts as the weakest hunter but gains a unique ability to level up after surviving a deadly dungeon. With his new powers, he becomes the Shadow Monarch, commanding an army of shadows.",
-    "image": "/static/img/sung-jin-woo-main.png",
+    "image": "/static/img/sungjin.jpg",
     "theme": "jinwoo"
   },
   "cha-hae-in": {
@@ -12,7 +12,7 @@
     "korean": "(차해인)",
     "title": "Vice-Guild Master of Hunters",
     "description": "Cha Hae In is the Vice-Guild Master of the Hunters Guild. Known for her swordsmanship and strong sense of justice. Her sense of smell makes her wary of most people—except for Jin-Woo.",
-    "image": "/static/img/cha-hae-in-main.png",
+    "image": "/static/img/chahae.jpg",
     "theme": "haein"
   },
   "baek-yoon-ho": {
@@ -20,7 +20,7 @@
     "korean": "(백윤호)",
     "title": "S-Rank Hunter, White Tiger Guild Master",
     "description": "Baek Yoon-Ho is an S-Rank Hunter and leader of the White Tiger Guild. He has a beast transformation ability and keeps a respectful watch on Jin-Woo’s rising powers.",
-    "image": "/static/img/baek-yoon-ho.png",
+    "image": "/static/img/baekyoo.jpg",
     "theme": "baek"
   },
   "go-gun-hee": {
@@ -28,7 +28,7 @@
     "korean": "(고건희)",
     "title": "Chairman of the Korean Hunters Association",
     "description": "Go Gun-Hee is a wise and powerful leader who tries to guide Jin-Woo and the other hunters through the chaos of rising gate threats.",
-    "image": "/static/img/go-gun-hee.png",
+    "image": "/static/img/gogun.jpg",
     "theme": "gunhee"
   },
   "yoo-jinho": {

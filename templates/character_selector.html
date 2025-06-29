@@ -1,60 +1,88 @@
 {% extends "base.html" %}
-{% block title %}Select a Character | Solo Leveling{% endblock %}
 
 {% block content %}
-<div class="container text-center my-5">
-  <h2 class="mb-4">Select a Character</h2>
+<link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+<div class="selector-container">
+  <h2>Select a Character</h2>
 
-  <div class="d-flex justify-content-center align-items-center mb-5">
-    <button class="btn btn-outline-dark me-3" onclick="prevCharacter()">&#10094;</button>
-
-    <div class="card shadow-lg" style="width: 22rem;" id="character-card">
-      <img id="char-img" src="" class="card-img-top" alt="Character Image" style="height: 300px; object-fit: cover;">
-      <div class="card-body">
-        <h5 class="card-title" id="char-name">Name</h5>
-        <h6 id="char-korean" class="text-muted"></h6>
-        <p class="card-text" id="char-title"></p>
-        <p class="card-text" id="char-desc"></p>
-        <span class="badge bg-primary" id="char-theme"></span>
-      </div>
+  <div class="slider-wrapper">
+    <button id="prevBtn" class="nav-arrow">&#10094;</button>
+    
+    <div class="card-slider" id="cardSlider">
+      <!-- Cards will be inserted dynamically here -->
     </div>
-
-    <button class="btn btn-outline-dark ms-3" onclick="nextCharacter()">&#10095;</button>
+    
+    <button id="nextBtn" class="nav-arrow">&#10095;</button>
   </div>
 </div>
-{% endblock %}
-
-{% block script %}
 <script>
-  const characters = {{ characters | tojson | safe }};
-  const keys = Object.keys(characters);
-  let currentIndex = keys.indexOf("sung-jin-woo");
+  let characterData = {};
+  let characterKeys = [];
+  let currentIndex = 0;
 
-  function updateSlider() {
-    const key = keys[currentIndex];
-    const char = characters[key];
+  fetch("/static/data/characters.json")
+    .then((res) => res.json())
+    .then((data) => {
+      characterData = data;
+      characterKeys = Object.keys(data);
+      loadCards();
+      highlightCard(0); // highlight first card by default
+    });
 
-    document.getElementById('char-img').src = char.image;
-    document.getElementById('char-name').textContent = char.name;
-    document.getElementById('char-korean').textContent = char.korean || "";
-    document.getElementById('char-title').textContent = char.title;
-    document.getElementById('char-desc').textContent = char.description;
-    document.getElementById('char-theme').textContent = `Theme: ${char.theme}`;
+  function loadCards() {
+    const slider = document.getElementById("cardSlider");
+    slider.innerHTML = ""; // clear existing
+
+    characterKeys.forEach((key, index) => {
+      const char = characterData[key];
+      const card = document.createElement("div");
+      card.className = "character-card";
+      card.innerHTML = `
+        <img src="${char.image}" alt="${char.name}" />
+        <h3>${char.name} <span style="font-size: 0.9rem;">${char.korean}</span></h3>
+        <p><strong>${char.title}</strong></p>
+        <div class="card-description">
+          <p>${char.description}</p>
+          <p><em>Theme: ${char.theme}</em></p>
+        </div>
+      `;
+
+      card.addEventListener("click", () => {
+        document.querySelectorAll(".character-card").forEach(c => c.classList.remove("active"));
+        card.classList.add("active");
+        currentIndex = index;
+      });
+
+      slider.appendChild(card);
+    });
   }
 
-  function prevCharacter() {
-    currentIndex = (currentIndex - 1 + keys.length) % keys.length;
-    updateSlider();
+  function highlightCard(index) {
+    const cards = document.querySelectorAll(".character-card");
+    if (cards[index]) {
+      cards[index].click();
+      cards[index].scrollIntoView({ behavior: "smooth", inline: "center", block: "nearest" });
+    }
   }
 
-  function nextCharacter() {
-    currentIndex = (currentIndex + 1) % keys.length;
-    updateSlider();
-  }
+  document.getElementById("nextBtn").addEventListener("click", () => {
+    if (currentIndex < characterKeys.length - 1) {
+      currentIndex++;
+      highlightCard(currentIndex);
+    }
+  });
 
-  window.onload = updateSlider;
+  document.getElementById("prevBtn").addEventListener("click", () => {
+    if (currentIndex > 0) {
+      currentIndex--;
+      highlightCard(currentIndex);
+    }
+  });
 </script>
 {% endblock %}
+
+
+
 
 
 
