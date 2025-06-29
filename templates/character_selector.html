@@ -1,88 +1,83 @@
 {% extends "base.html" %}
-
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
 <div class="selector-container">
   <h2>Select a Character</h2>
-
   <div class="slider-wrapper">
     <button id="prevBtn" class="nav-arrow">&#10094;</button>
-
-    <div class="card-slider" id="cardSlider">
-      <!-- Cards will be inserted dynamically here -->
-    </div>
-
+    <div class="card-slider" id="cardSlider"></div>
     <button id="nextBtn" class="nav-arrow">&#10095;</button>
   </div>
 </div>
 
 <script>
-  let characterData = {};
-  let characterKeys = [];
-  let currentIndex = 0;
+let characterData = {};
+let characterKeys = [];
+let currentIndex = 0;
 
-  fetch("/static/data/characters.json")
-    .then((res) => res.json())
-    .then((data) => {
-      characterData = data;
-      characterKeys = Object.keys(data);
-      loadCards();
-      highlightCard(0); // highlight first card by default
-    });
-
-  function loadCards() {
-    const slider = document.getElementById("cardSlider");
-    slider.innerHTML = "";
-
-    characterKeys.forEach((key, index) => {
-      const char = characterData[key];
-      const card = document.createElement("div");
-      card.className = "character-card";
-      card.innerHTML = `
-        <img src="${char.image}" alt="${char.name}" />
-        <h3>${char.name} <span style="font-size: 0.9rem;">${char.korean}</span></h3>
-        <p><strong>${char.title}</strong></p>
-        <div class="card-description">
-          <p>${char.description}</p>
-          <p><em>Theme: ${char.theme}</em></p>
-        </div>
-      `;
-
-      card.addEventListener("click", () => {
-        document.querySelectorAll(".character-card").forEach(c => {
-          c.classList.remove("expanded");
-        });
-        card.classList.add("expanded");
-        currentIndex = index;
-        card.scrollIntoView({ behavior: "smooth", inline: "center" });
-      });
-
-      slider.appendChild(card);
-    });
-  }
-
-  function highlightCard(index) {
-    const cards = document.querySelectorAll(".character-card");
-    if (cards[index]) {
-      cards[index].click();
-    }
-  }
-
-  document.getElementById("nextBtn").addEventListener("click", () => {
-    if (currentIndex < characterKeys.length - 1) {
-      currentIndex++;
-      highlightCard(currentIndex);
-    }
+fetch("/static/data/characters.json")
+  .then(res => res.json())
+  .then(data => {
+    characterData = data;
+    characterKeys = Object.keys(data);
+    loadCards();
+    highlightCard(0);
   });
 
-  document.getElementById("prevBtn").addEventListener("click", () => {
-    if (currentIndex > 0) {
-      currentIndex--;
-      highlightCard(currentIndex);
-    }
+function loadCards() {
+  const slider = document.getElementById("cardSlider");
+  slider.innerHTML = "";
+
+  characterKeys.forEach((key, index) => {
+    const char = characterData[key];
+    const card = document.createElement("div");
+    card.className = "character-card";
+    card.innerHTML = `
+      <img src="${char.image}" alt="${char.name}" />
+      <h3>${char.name} <span style="font-size: 0.9rem;">${char.korean}</span></h3>
+      <p><strong>${char.title}</strong></p>
+      <div class="card-description">
+        <p>${char.description}</p>
+        <p><em>Theme: ${char.theme}</em></p>
+      </div>
+    `;
+
+    card.addEventListener("click", () => {
+      document.querySelectorAll(".character-card").forEach(c => c.classList.remove("expanded"));
+      card.classList.add("expanded");
+      currentIndex = index;
+      card.scrollIntoView({ behavior: "smooth", inline: "center" });
+    });
+
+    slider.appendChild(card);
   });
+}
+
+function highlightCard(index) {
+  const cards = document.querySelectorAll(".character-card");
+  if (cards[index]) {
+    cards[index].click();
+  }
+}
+
+document.getElementById("nextBtn").addEventListener("click", () => {
+  if (currentIndex < characterKeys.length - 1) {
+    currentIndex++;
+    highlightCard(currentIndex);
+  }
+});
+
+document.getElementById("prevBtn").addEventListener("click", () => {
+  if (currentIndex > 0) {
+    currentIndex--;
+    highlightCard(currentIndex);
+  }
+});
 </script>
 {% endblock %}
+
+
 
 
 

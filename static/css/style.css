@@ -876,6 +876,37 @@ body {
   opacity: 1;
 }
 
+.character-card {
+  width: 250px;
+  padding: 1rem;
+  background: #222;
+  color: #fff;
+  border-radius: 12px;
+  margin: 0 0.5rem;
+  text-align: center;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.character-card img {
+  width: 100%;
+  border-radius: 8px;
+}
+
+.card-description {
+  max-height: 0;
+  overflow: hidden;
+  opacity: 0;
+  transition: max-height 0.3s ease, opacity 0.3s ease;
+}
+
+.character-card.expanded .card-description {
+  max-height: 500px;
+  opacity: 1;
+}
+
+
 
 
 
