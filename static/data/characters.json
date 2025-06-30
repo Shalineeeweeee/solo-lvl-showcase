@@ -44,7 +44,7 @@
     "korean": "(성일환)",
     "title": "Jin-Woo’s Father, Lost-Returned Hunter",
     "description": "Il-Hwan disappeared years ago in a dungeon but returned with powerful abilities. He plays a crucial role in the fight against the Monarchs.",
-    "image": "/static/img/sung-il-hwan.png",
+    "image": "/static/img/ilhwan.jpg",
     "theme": "ilhwan"
   },
   "thomas-andre": {
@@ -52,7 +52,7 @@
     "korean": "(토마스 앤드류)",
     "title": "National-Level Hunter, Scavenger Guild",
     "description": "Thomas Andre is a National-Level Hunter from America. Despite his arrogance, he eventually respects Jin-Woo's strength after their clash.",
-    "image": "/static/img/thomas-andre.png",
+    "image": "/static/img/thomasandre.jpg",
     "theme": "thomas"
   },
   "liu-zhigang": {
@@ -60,7 +60,7 @@
     "korean": "(류즈강)",
     "title": "National-Level Hunter from China",
     "description": "Liu Zhigang is one of the strongest hunters in the world and represents China’s power. He shows great interest in Jin-Woo’s potential.",
-    "image": "/static/img/liu-zhigang.png",
+    "image": "/static/img/zigang.jpg",
     "theme": "liu"
   },
   "ashborn": {

@@ -21,6 +21,8 @@ def character():
 
 
 
+
+
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
