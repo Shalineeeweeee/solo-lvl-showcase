@@ -68,15 +68,15 @@
     "korean": "(아스본)",
     "title": "The Original Shadow Monarch",
     "description": "Ashborn is the true Shadow Monarch whose powers Jin-Woo inherits. He guides and watches over Jin-Woo, shaping his destiny.",
-    "image": "/static/img/ashborn.png",
+    "image": "/static/img/ash.jpg",
     "theme": "ashborn"
   },
   "igoris": {
-    "name": "IGORIS",
+    "name": "IGRIS",
     "korean": "(이고리스)",
     "title": "Monarch of the Frost",
-    "description": "Igoris is the Monarch of Frost and one of Jin-Woo’s main enemies during the Monarch War. He’s ruthless and cunning.",
-    "image": "/static/img/igoris.png",
+    "description": "Igris is the Monarch of Frost and one of Jin-Woo’s main enemies during the Monarch War. He’s ruthless and cunning.",
+    "image": "/static/img/igris.jpg",
     "theme": "frost"
   }
 }

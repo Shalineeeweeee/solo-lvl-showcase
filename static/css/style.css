@@ -559,10 +559,6 @@ body {
   border-radius: 12px;
   box-shadow: 0 0 30px var(--card-bg-dark);
   -webkit-backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
   backdrop-filter: blur(8px);
   transition: all 0.3s ease-in-out;
   min-height: 450px;
@@ -650,261 +646,29 @@ body {
     background-color: var(--card-bg-dark);
 }
 
-.character-slider-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 40px;
+/* ✅ Jinwoo Theme */
+.theme-jinwoo #character-background-overlay {
+  background: url('/static/img/bg-jinwoo.jpg') no-repeat center center/cover;
 }
 
-.character-slider {
-    display: flex;
-    align-items: center;
-    gap: 20px;
+/* ✅ Haein Theme */
+.theme-haein #character-background-overlay {
+  background: url('/static/img/bg-haein.jpg') no-repeat center center/cover;
 }
 
-.character-card {
-    padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    text-align: center;
-    width: 220px;
-    transition: all 0.3s ease;
-    background-color: #1c1c1c;
-    color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
-}
-
-.character-card.selected {
-    border-color: #00ffe5;
-    transform: scale(1.1);
-    box-shadow: 0 6px 15px rgba(0, 255, 229, 0.7);
-}
-
-.character-card img {
-    width: 180px;
-    height: auto;
-    border-radius: 8px;
-}
-
-.character-slider button {
-    font-size: 30px;
-    background: none;
-    border: none;
-    color: white;
-    cursor: pointer;
-    transition: transform 0.2s ease;
-}
-
-.character-slider button:hover {
-    transform: scale(1.2);
-}
-
-.char-title {
-  font-weight: bold;
-  font-size: 1.1rem;
-  margin-top: 5px;
-}
-
-.char-desc {
-  font-size: 0.95rem;
-  padding: 0 10px;
-  color: #ccc;
-}
-
-.selector-container {
-    padding: 2rem;
-    color: white;
-    text-align: center;
-  }
-
-  .slider-wrapper {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 1rem;
-    position: relative;
-    width: 100%;
-    overflow: hidden;
-  }
-
-  .nav-arrow {
-    background: none;
-    border: none;
-    font-size: 2.5rem;
-    color: white;
-    cursor: pointer;
-    z-index: 2;
-  }
-
-  .card-slider {
-    display: flex;
-    gap: 1.5rem;
-    overflow: hidden;
-    scroll-behavior: smooth;
-    padding: 1rem 0;
-  }
-
-  .character-card {
-    background-color: transparent;
-    border-radius: 1rem;
-    padding: 1rem;
-    width: 260px;
-    flex-shrink: 0;
-    transition: transform 0.3s ease, border 0.3s ease;
-    border: 2px solid transparent;
-    color: white;
-    text-align: center;
-    cursor: pointer;
-  }
-
-  .character-card img {
-    max-height: 300px;
-    object-fit: contain;
-    margin-bottom: 0.5rem;
-    width: 100%;
-    border-radius: 8px;
-  }
-
-
-
-  .character-card.active {
-    border: 2px solid var(--gradient-end-dark);
-    transform: scale(1.05);
-    background-color: var(--card-bg-dark);
-  }
-
-  .card-description {
-    margin-top: 0.5rem;
-    display: none;
-    font-size: 0.95rem;
-    text-align: left;
-  }
-
-  .character-card.active .card-description {
-    display: block;
-  }
-
-  /* Hide scrollbars but allow scrolling with arrows */
-  .card-slider::-webkit-scrollbar {
-    display: none;
-  }
-  .card-slider {
-    -ms-overflow-style: none;
-    /* scrollbar-width removed for better compatibility */
-  }
-
-  .card-slider {
-  display: flex;
-  gap: 1.5rem;
-  overflow: hidden;
-  scroll-behavior: smooth;
-  padding: 1rem 2rem; /* Add horizontal padding here */
-  box-sizing: content-box; /* Important to keep padding inside scroll area */
-}
-
-.card-description.hidden {
-  display: none;
-}
-.card.expanded .card-description {
-  display: block;
+/* ✅ Default style */
+#character-background-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: -1;
+  transition: background 0.4s ease;
 }
 
 
-  @media (max-width: 768px) {
-    .character-card {
-      width: 220px;
-    }
 
-    .character-card img {
-      max-height: 240px;
-    }
-  }
-
-.card-slider {
-  display: flex;
-  gap: 1rem;
-  overflow-x: auto;
-  padding: 1rem;
-  scroll-snap-type: x mandatory;
-}
-
-.character-card {
-  flex-shrink: 0;
-  scroll-snap-align: start;
-  width: 220px;
-  background: linear-gradient(to bottom, #1f1c1c, #3a2d1f);
-  color: white;
-  border-radius: 16px;
-  padding: 1rem;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
-  transition: all 0.3s ease;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  overflow: hidden;
-  height: 300px;
-  position: relative;
-  cursor: pointer;
-}
-
-.character-card img {
-  width: 100%;
-  height: auto;
-  border-radius: 8px;
-  margin-bottom: 0.5rem;
-}
-
-.card-description {
-  font-size: 0.9rem;
-  line-height: 1.4;
-  text-align: left;
-  margin-top: 0.5rem;
-  max-height: 0;
-  opacity: 0;
-  overflow: hidden;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-}
-
-.character-card.expanded {
-  height: auto;
-  border: 2px solid gold;
-}
-
-.character-card.expanded .card-description {
-  max-height: 500px;
-  opacity: 1;
-}
-
-.character-card {
-  width: 250px;
-  padding: 1rem;
-  background: #222;
-  color: #fff;
-  border-radius: 12px;
-  margin: 0 0.5rem;
-  text-align: center;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  flex-shrink: 0;
-}
-
-.character-card img {
-  width: 100%;
-  border-radius: 8px;
-}
-
-.card-description {
-  max-height: 0;
-  overflow: hidden;
-  opacity: 0;
-  transition: max-height 0.3s ease, opacity 0.3s ease;
-}
-
-.character-card.expanded .card-description {
-  max-height: 500px;
-  opacity: 1;
-}
 
 
 

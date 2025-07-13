@@ -5,7 +5,7 @@
 
 <div class="selector-container">
   <h2>Select a Character</h2>
-  <div class="slider-wrapper">
+  <div class="slider-wrapper hidden" id="sliderWrapper">
     <button id="prevBtn" class="nav-arrow">&#10094;</button>
     <div class="card-slider" id="cardSlider"></div>
     <button id="nextBtn" class="nav-arrow">&#10095;</button>
@@ -13,6 +13,11 @@
 </div>
 
 <script>
+(function () {
+  const savedTheme = localStorage.getItem('selectedTheme') || 'jinwoo';
+  document.body.classList.add(`theme-${savedTheme}`);
+})();
+
 let characterData = {};
 let characterKeys = [];
 let currentIndex = 0;
@@ -23,7 +28,12 @@ fetch("/static/data/characters.json")
     characterData = data;
     characterKeys = Object.keys(data);
     loadCards();
-    highlightCard(0);
+
+    const savedKey = localStorage.getItem("selectedCharacterKey");
+    const savedIndex = characterKeys.indexOf(savedKey);
+    highlightCard(savedIndex >= 0 ? savedIndex : 0);
+
+    document.getElementById("sliderWrapper").classList.remove("hidden");
   });
 
 function loadCards() {
@@ -43,14 +53,14 @@ function loadCards() {
         <p><em>Theme: ${char.theme}</em></p>
       </div>
     `;
-
     card.addEventListener("click", () => {
       document.querySelectorAll(".character-card").forEach(c => c.classList.remove("expanded"));
       card.classList.add("expanded");
       currentIndex = index;
+      localStorage.setItem("selectedCharacterKey", key);
+      fetch(`/set-character?key=${key}`).catch(() => {});
       card.scrollIntoView({ behavior: "smooth", inline: "center" });
     });
-
     slider.appendChild(card);
   });
 }
@@ -58,7 +68,15 @@ function loadCards() {
 function highlightCard(index) {
   const cards = document.querySelectorAll(".character-card");
   if (cards[index]) {
-    cards[index].click();
+    cards.forEach(c => c.classList.remove("expanded"));
+    cards[index].classList.add("expanded");
+
+    const cardWidth = cards[index].offsetWidth + 32;
+    const slider = document.getElementById("cardSlider");
+    const scrollPosition = cardWidth * index - (slider.offsetWidth / 2) + (cardWidth / 2);
+
+    slider.scrollTo({ left: scrollPosition, behavior: "smooth" });
+    currentIndex = index;
   }
 }
 
@@ -77,6 +95,11 @@ document.getElementById("prevBtn").addEventListener("click", () => {
 });
 </script>
 {% endblock %}
+
+
+
+
+
 
 
 
