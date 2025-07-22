@@ -3,24 +3,24 @@
 {% block title %}Solo Leveling Showcase{% endblock %}
 
 {% block content %}
-<!-- DEBUG: user = {{ user }} -->
-
 <!-- Character BG Overlay + Image -->
 <div id="character-background-overlay"></div>
-<img id="character-main-image" src="{{ url_for('static', filename='img/sung-jin-woo-main.png') }}" alt="Sung Jin Woo">
+<img id="character-main-image" class="character-image" src="" alt="Character Image" />
 
 <!-- Character Showcase Section -->
 <main id="character-showcase">
     <div class="character-display">
-        <div class="character-info">
+        <div class="character-info" >
             <div id="rank-toggle" title="Toggle Theme">
                 <span id="rank-symbol" class="glow-s">S</span>
                 <span class="rank-text"> RANK</span>
             </div>
-            <h2 class="character-title">Shadow Monarch A.K.A</h2>
-            <h1 class="character-name">SUNG JIN WOO <span class="korean-name">(성진우)</span></h1>
+            <h2 class="character-title"></h2>
+            <h1 id="characterName" class="character-name">
+                <span class="korean-name"></span>
+            </h1>
             <div class="character-about-placeholder">
-                <p>Sung Jin-Woo is the main character of Solo Leveling. He starts as the weakest hunter but gains a unique ability to level up after surviving a deadly dungeon. With his new powers, he becomes the Shadow Monarch, commanding an army of shadows. Jin-Woo transforms from a powerless fighter into the world’s strongest hunter, protecting his loved ones and battling powerful enemies.</p>
+                <p class="character-description"></p>
             </div>
             <div class="social-icons">
                 <a href="#"><img src="{{ url_for('static', filename='img/icon-twitter.png') }}" alt="Twitter"></a>
@@ -33,16 +33,37 @@
     </div>
 </main>
 
-<!-- ABOUT Side Drawer -->
-<div id="about-container">
-    <div id="about-toggle-tab">ABOUT <i id="chevron-icon" class="fas fa-chevron-left"></i></div>
-    <div id="about-dropdown">
-        <div class="about-item"><h4>AFFILIATION</h4><p>Vice-Guild Master of the Hunters Guild.</p></div>
-        <div class="about-item"><h4>STATUS</h4><p>S-Rank Hunter with top-tier sword skills.</p></div>
-        <div class="about-item"><h4>RELATIONSHIPS</h4><p>Has a bond with Sung Jin-Woo, grows throughout the story.</p></div>
-        <div class="about-item"><h4>SKILLS</h4><p>Incredible swordsmanship, heightened senses.</p></div>
-        <div class="about-item"><h4>TROOPS</h4><p>Operates mostly solo; doesn't lead summoned troops.</p></div>
-        <div class="about-item"><h4>WEAPON & EQS</h4><p>Wields a magical sword with radiant power.</p></div>
-    </div>
-</div>
+<!-- SCRIPT -->
+<script>
+document.addEventListener("DOMContentLoaded", () => {
+    const characterData = JSON.parse(localStorage.getItem("characterData"));
+    const selectedTheme = localStorage.getItem("selectedTheme");
+
+    // Default fallback
+    const defaultCharacter = {
+        name: "Sung Jin-Woo",
+        korean_name: "성진우",
+        title: "Shadow Monarch A.K.A",
+        description: "Sung Jin-Woo is the main character of Solo Leveling. He starts as the weakest hunter but gains a unique ability to level up after surviving a deadly dungeon. With his new powers, he becomes the Shadow Monarch, commanding an army of shadows. Jin-Woo transforms from a powerless fighter into the world’s strongest hunter, protecting his loved ones and battling powerful enemies.",
+        theme: "theme-jinwoo",
+        image: "/static/img/sung-jin-woo-main.png"
+    };
+
+    const character = characterData || defaultCharacter;
+
+    // Apply Theme
+    const root = document.documentElement;
+    root.classList.remove(...root.classList);
+    root.classList.add(selectedTheme || defaultCharacter.theme);
+
+    // Update DOM Elements
+    document.querySelector(".character-title").textContent = character.title;
+    document.querySelector(".character-name").childNodes[0].nodeValue = character.name + " ";
+    document.querySelector(".korean-name").textContent = `(${character.korean_name})`;
+    document.querySelector(".character-description").textContent = character.description;
+    document.querySelector(".character-image").src = character.image;
+});
+</script>
 {% endblock %}
+
+

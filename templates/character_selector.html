@@ -1,5 +1,4 @@
 {% extends "base.html" %}
-
 {% block content %}
 <link rel="stylesheet" href="{{ url_for('static', filename='css/selector.css') }}">
 
@@ -53,14 +52,25 @@ function loadCards() {
         <p><em>Theme: ${char.theme}</em></p>
       </div>
     `;
+
     card.addEventListener("click", () => {
-      document.querySelectorAll(".character-card").forEach(c => c.classList.remove("expanded"));
-      card.classList.add("expanded");
-      currentIndex = index;
-      localStorage.setItem("selectedCharacterKey", key);
-      fetch(`/set-character?key=${key}`).catch(() => {});
-      card.scrollIntoView({ behavior: "smooth", inline: "center" });
-    });
+  console.log("CLICKED ON", key); // ✅ THIS will now work
+  document.querySelectorAll(".character-card").forEach(c => c.classList.remove("expanded"));
+  card.classList.add("expanded");
+
+  localStorage.setItem("selectedCharacterKey", key);     // ✅ Save key
+  localStorage.setItem("selectedTheme", char.theme);     // ✅ Save theme
+
+  document.body.className = [...document.body.classList]
+    .filter(c => !c.startsWith("theme-"))
+    .join(" ")
+    .trim();
+  document.body.classList.add(`theme-${char.theme}`);
+
+  card.scrollIntoView({ behavior: "smooth", inline: "center" });
+   currentIndex = index;
+  });
+  
     slider.appendChild(card);
   });
 }
@@ -72,10 +82,9 @@ function highlightCard(index) {
     cards[index].classList.add("expanded");
 
     const cardWidth = cards[index].offsetWidth + 32;
-    const slider = document.getElementById("cardSlider");
-    const scrollPosition = cardWidth * index - (slider.offsetWidth / 2) + (cardWidth / 2);
+    const scrollX = cardWidth * index - (document.getElementById("cardSlider").offsetWidth / 2) + (cardWidth / 2);
 
-    slider.scrollTo({ left: scrollPosition, behavior: "smooth" });
+    document.getElementById("cardSlider").scrollTo({ left: scrollX, behavior: "smooth" });
     currentIndex = index;
   }
 }
@@ -95,6 +104,8 @@ document.getElementById("prevBtn").addEventListener("click", () => {
 });
 </script>
 {% endblock %}
+
+
 
 
 

@@ -18,7 +18,12 @@ const CHARACTER_DATA = {
     }
 };
 
-let currentCharacter = "sung-jin-woo";
+// Load saved character before anything else
+let currentCharacter = localStorage.getItem("selectedCharacterKey") || "sung-jin-woo";
+
+// Apply theme and character info ASAP to prevent flicker
+applyTheme(CHARACTER_DATA[currentCharacter].theme);
+updateCharacterInfo(currentCharacter);
 
 function applyTheme(theme) {
     document.body.classList.remove("theme-jinwoo", "theme-haein");
@@ -40,62 +45,53 @@ function updateCharacterInfo(characterKey) {
     const data = CHARACTER_DATA[characterKey];
     if (!data) return;
 
-    setTimeout(() => {
-        const charNameElement = document.querySelector(".character-name");
-        const koreanNameElement = document.querySelector(".korean-name");
-        if (charNameElement && koreanNameElement) {
-            charNameElement.childNodes[0].textContent = data.name + " ";
-            koreanNameElement.textContent = data.korean;
-        }
+    const nameEl = document.querySelector(".character-name");
+    const koreanEl = document.querySelector(".korean-name");
+    const titleEl = document.querySelector(".character-title");
+    const descEl = document.querySelector(".character-about-placeholder p");
+    const imageEl = document.getElementById("character-main-image");
 
-        const charTitleElement = document.querySelector(".character-title");
-        if (charTitleElement) charTitleElement.textContent = data.title;
+    if (nameEl) nameEl.childNodes[0].textContent = data.name + " ";
+    if (koreanEl) koreanEl.textContent = data.korean;
+    if (titleEl) titleEl.textContent = data.title;
+    if (descEl) descEl.textContent = data.description;
 
-        const aboutPlaceholderElement = document.querySelector(".character-about-placeholder p");
-        if (aboutPlaceholderElement) aboutPlaceholderElement.textContent = data.description;
-
-        const mainImageElement = document.getElementById("character-main-image");
-        if (mainImageElement) {
-            mainImageElement.style.opacity = 0;
-            setTimeout(() => {
-                mainImageElement.src = data.image;
-                mainImageElement.onload = () => {
-                    mainImageElement.style.opacity = 1;
-                };
-            }, 200);
-        }
-
-        applyTheme(data.theme);
-    }, 100);
+    if (imageEl) {
+        imageEl.style.opacity = 0;
+        setTimeout(() => {
+            imageEl.src = data.image;
+            imageEl.onload = () => {
+                imageEl.style.opacity = 1;
+            };
+        }, 200);
+    }
 }
 
 document.addEventListener("DOMContentLoaded", () => {
-    const savedTheme = localStorage.getItem("selectedTheme") || "jinwoo";
-    currentCharacter = savedTheme === "jinwoo" ? "sung-jin-woo" : "cha-hae-in";
-    updateCharacterInfo(currentCharacter);
-    applyTheme(savedTheme);
-
+    // Toggle Rank
     const rankToggle = document.getElementById("rank-toggle");
     const rankSymbol = document.getElementById("rank-symbol");
-    if (rankToggle) {
+    if (rankToggle && rankSymbol) {
         rankToggle.addEventListener("click", () => {
             currentCharacter = currentCharacter === "sung-jin-woo" ? "cha-hae-in" : "sung-jin-woo";
+            localStorage.setItem("selectedCharacterKey", currentCharacter);
+            localStorage.setItem("selectedTheme", CHARACTER_DATA[currentCharacter].theme);
             updateCharacterInfo(currentCharacter);
+            applyTheme(CHARACTER_DATA[currentCharacter].theme);
 
-            rankSymbol.style.display = 'none';
+            rankSymbol.style.display = "none";
             rankSymbol.offsetHeight;
-            rankSymbol.style.display = 'inline-block';
+            rankSymbol.style.display = "inline-block";
         });
     }
 
+    // About Dropdown
     const aboutToggle = document.getElementById("about-toggle");
     const aboutDropdown = document.getElementById("about-dropdown");
-
     if (aboutToggle && aboutDropdown) {
         aboutToggle.addEventListener("click", () => {
             aboutDropdown.classList.toggle("hidden");
         });
-
         document.addEventListener("click", (e) => {
             if (!aboutToggle.contains(e.target) && !aboutDropdown.contains(e.target)) {
                 aboutDropdown.classList.add("hidden");
@@ -103,10 +99,10 @@ document.addEventListener("DOMContentLoaded", () => {
         });
     }
 
+    // About Sidebar Toggle
     const aboutContainer = document.getElementById("about-container");
     const aboutToggleTab = document.getElementById("about-toggle-tab");
     const chevronIcon = document.getElementById("chevron-icon");
-
     if (aboutContainer && aboutToggleTab && chevronIcon) {
         aboutToggleTab.addEventListener("click", () => {
             aboutContainer.classList.toggle("open");
@@ -116,6 +112,7 @@ document.addEventListener("DOMContentLoaded", () => {
         aboutContainer.classList.remove("open");
     }
 
+    // Smooth scroll
     const anchorLinks = document.querySelectorAll('a[href^="#"]');
     anchorLinks.forEach(link => {
         link.addEventListener("click", function (e) {
@@ -145,6 +142,20 @@ window.addEventListener("click", function (e) {
         menu.classList.remove("show");
     }
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const savedKey = localStorage.getItem("selectedCharacterKey") || "sung-jin-woo";
+
+  // Check if data exists for the key
+  if (CHARACTER_DATA[savedKey]) {
+    updateCharacterInfo(savedKey);
+    applyTheme(CHARACTER_DATA[savedKey].theme);
+  } else {
+    console.warn("No data for key:", savedKey);
+  }
+});
+
+
 
 
 

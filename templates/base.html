@@ -5,21 +5,20 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>{% block title %}Solo Leveling Showcase{% endblock %}</title>
 
-  <!-- 🪄 Apply theme IMMEDIATELY to <html> before anything renders -->
+  <!-- ✅ Inject theme class BEFORE CSS -->
   <script>
     (function () {
-      const savedTheme = localStorage.getItem('selectedTheme') || 'jinwoo';
-      document.documentElement.className = `theme-${savedTheme}`;
+      const theme = localStorage.getItem('selectedTheme') || 'jinwoo';
+      document.documentElement.className = `theme-${theme}`;
     })();
   </script>
 
-  <!-- ✅ Now load CSS -->
+  <!-- ✅ Load CSS after theme is applied -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
 </head>
 
 <body>
-  <!-- ✅ Background Overlay -->
   <div id="character-background-overlay"></div>
 
   {% if not hide_nav %}
@@ -29,12 +28,12 @@
       <ul>
         <li><a href="/" class="nav-item">Home</a></li>
         <li><a href="/character" class="nav-item">Characters</a></li>
-        <li><a href="/about" class="nav-item">Help</a></li>
+        <li><a href="mailto:shalineemishra2006@gmail.com" class="nav-item">Help</a></li>
       </ul>
 
       {% if user %}
       <div class="profile-dropdown">
-        <img src="{{ url_for('static', filename='img/profile.png') }}" alt="Profile" class="profile-icon" onclick="toggleProfileMenu()" />
+        <img src="{{ url_for('static', filename='img/profile.png') }}" class="profile-icon" alt="Profile Icon" onclick="toggleProfileMenu()" />
         <div id="profile-menu" class="dropdown-menu">
           <a href="/profile">View Profile</a>
           <a href="/logout">Log Out</a>
@@ -43,7 +42,17 @@
       {% else %}
       <a href="/signup" id="sign">Sign Up</a>
       {% endif %}
-
+        <div id="about-container"> 
+      <div id="about-toggle-tab">ABOUT <i id="chevron-icon" class="fas fa-chevron-left"></i></div>
+      <div id="about-dropdown">
+          <div class="about-item"><h4>AFFILIATION</h4><p>Vice-Guild Master of the Hunters Guild.</p></div>
+          <div class="about-item"><h4>STATUS</h4><p>S-Rank Hunter with top-tier sword skills.</p></div>
+          <div class="about-item"><h4>RELATIONSHIPS</h4><p>Has a bond with Sung Jin-Woo.</p></div>
+          <div class="about-item"><h4>SKILLS</h4><p>Incredible swordsmanship, heightened senses.</p></div>
+          <div class="about-item"><h4>TROOPS</h4><p>Operates mostly solo.</p></div>
+          <div class="about-item"><h4>WEAPON & EQS</h4><p>Magical sword with radiant power.</p></div>
+      </div>
+    </div>
       <div class="search-container">
         <button type="submit" class="search-button" title="Search">
           <i class="fas fa-search"></i>
@@ -54,27 +63,13 @@
   </header>
   {% endif %}
 
-  <!-- ✅ Main Content -->
   <div id="app-container">
     {% block content %}{% endblock %}
   </div>
-
-  <!-- ✅ Set background overlay from computed theme -->
-  <script>
-    document.addEventListener("DOMContentLoaded", () => {
-      const overlay = document.getElementById("character-background-overlay");
-      const styles = getComputedStyle(document.documentElement);
-      overlay.style.background = styles.getPropertyValue("--bg-color-dark");
-
-      // Save session theme for backend
-      const theme = localStorage.getItem('selectedTheme') || 'jinwoo';
-      fetch(`/set-theme?theme=${theme}`);
-    });
-  </script>
-
   <script src="{{ url_for('static', filename='js/script.js') }}"></script>
 </body>
 </html>
+
 
 
 

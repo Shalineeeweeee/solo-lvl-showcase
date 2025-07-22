@@ -1,0 +1,80 @@
+.theme-jinwoo {
+    --bg-color-dark: linear-gradient(to left, #390b65 2%, #1b1d92 40%, #160266 70%, #000000 100%);
+    --card-bg-dark: #ffffff;
+    --text-color-dark: #ffffff;
+    --heading-color-dark: #ffcc00;
+    --accent-color-dark: #ff6f61;
+    --border-color-dark: #444444;
+    --gradient-start-dark: #1b1d92;
+    --gradient-end-dark: #000000;
+}
+
+.theme-haein {
+    --bg-color-dark: linear-gradient(to bottom, #3a3128 2%, #4c3d27 40%, #845d25 70%, #be892d 100%);
+    --card-bg-dark: #c7b300;
+    --text-color-dark: #f8f3f3;
+    --heading-color-dark: #ffffff;
+    --accent-color-dark: #794500;
+    --border-color-dark: #dddddd;
+    --gradient-start-dark: #7e6300;
+    --gradient-end-dark:#ae9102;
+}
+
+.profile-container {
+  justify-content: center;
+  align-items: center;
+  padding: 50px 20px;
+  background: var(--bg-color-dark); /* uses theme gradient */
+  min-height: 100vh;
+}
+
+.profile-card {
+  background-color: var(--card-bg-dark);
+  border-radius: 15px;
+  padding: 30px;
+  width: 100%;
+  max-width: 400px;
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  color: var(--text-color-dark);
+  text-align: center;
+  border: 1px solid var(--border-color-dark);
+}
+
+.profile-header {
+  margin-bottom: 20px;
+  color: var(--heading-color-dark);
+}
+
+.avatar {
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  border: 3px solid var(--border-color-dark);
+  margin-bottom: 15px;
+}
+
+.profile-details p {
+  margin: 10px 0;
+  font-size: 16px;
+  color: var(--text-color-dark);
+}
+
+.btn {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 25px;
+  border: none;
+  border-radius: 8px;
+  background-color: var(--accent-color-dark);
+  color: var(--text-color-dark);
+  text-decoration: none;
+  font-weight: bold;
+  transition: background 0.3s;
+}
+
+.btn:hover {
+  background-color: var(--heading-color-dark);
+  color: var(--bg-color-dark);
+}
