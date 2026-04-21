@@ -843,45 +843,53 @@ body {
 
 @media (max-width: 768px) {
 
+  /* Layout becomes vertical */
   .character-hero {
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    justify-content: flex-start;
     padding: 20px;
     text-align: center;
-    gap: 20px;
   }
 
+  /* Text section */
   .selector-info {
-    max-width: 100%;
-    padding: 0 10px;
+    width: 100%;
+    max-width: 90%;
+    margin-top: 20px;
   }
 
   .selector-info h1 {
-    font-size: 28px;
+    font-size: 2rem;
   }
 
   .selector-info h4 {
-    font-size: 14px;
+    font-size: 1rem;
+    opacity: 0.8;
   }
 
   .selector-info p {
-    font-size: 14px;
+    font-size: 0.95rem;
+    line-height: 1.4;
   }
 
+  /* Image section */
   .character-visual {
-    width: 100%;
-    display: flex;
-    justify-content: center;
+    margin-top: 30px;
   }
 
   .character-visual img {
-    width: 80%;
-    max-width: 280px;
+    width: 70%;
+    max-width: 260px;
     height: auto;
-    border-radius: 12px;
   }
 
+  /* Glow stays but softer on mobile */
+  .character-visual img {
+    box-shadow: 0 0 20px var(--accent-color-dark);
+  }
+
+  /* Arrows reposition */
   .nav-btn {
     top: auto;
     bottom: 20px;
@@ -895,6 +903,79 @@ body {
   .nav-btn.right {
     right: 20px;
   }
+
+  /* Navbar spacing fix */
+  #main-nav {
+    flex-wrap: wrap;
+    gap: 10px;
+  }
+
+  #main-nav ul {
+    display: none; /* optional: hide nav links on mobile */
+  }
+
+}
+
+@media (max-width: 768px) {
+
+  /* ===== NAVBAR FIX ===== */
+  #main-nav {
+    flex-wrap: wrap;
+    justify-content: space-between;
+    padding: 10px 15px;
+  }
+
+  .logo {
+    width: 120px;
+  }
+
+  #main-nav ul {
+    display: none; /* hide nav links (cleaner mobile) */
+  }
+
+  #sign {
+    font-size: 0.9rem;
+  }
+
+  /* Search bar fix */
+  .search-container {
+    width: 100%;
+    margin-top: 10px;
+  }
+
+  .search-input {
+    width: 100%;
+  }
+
+  /* ===== ABOUT PANEL FIX ===== */
+  #about-panel {
+    width: 100%;
+    height: 70%;
+    bottom: 0;
+    right: 0;
+    border-radius: 16px 16px 0 0;
+    transform: translateY(100%); /* slide from bottom */
+  }
+
+  #about-panel.active {
+    transform: translateY(0);
+  }
+
+  /* Make text scrollable */
+  .about-section {
+    overflow-y: auto;
+    max-height: 60vh;
+  }
+
+  /* ===== CHARACTER IMAGE FIX (global safety) ===== */
+  #character-main-image {
+    width: 90%;
+    max-width: 300px;
+    height: auto;
+    margin: 0 auto;
+    display: block;
+  }
+
 }
 
 
