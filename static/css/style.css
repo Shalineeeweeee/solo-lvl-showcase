@@ -841,6 +841,62 @@ body {
     transform: translateY(0);
 }
 
+@media (max-width: 768px) {
+
+  .character-hero {
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    text-align: center;
+    gap: 20px;
+  }
+
+  .selector-info {
+    max-width: 100%;
+    padding: 0 10px;
+  }
+
+  .selector-info h1 {
+    font-size: 28px;
+  }
+
+  .selector-info h4 {
+    font-size: 14px;
+  }
+
+  .selector-info p {
+    font-size: 14px;
+  }
+
+  .character-visual {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+  }
+
+  .character-visual img {
+    width: 80%;
+    max-width: 280px;
+    height: auto;
+    border-radius: 12px;
+  }
+
+  .nav-btn {
+    top: auto;
+    bottom: 20px;
+    transform: none;
+  }
+
+  .nav-btn.left {
+    left: 20px;
+  }
+
+  .nav-btn.right {
+    right: 20px;
+  }
+}
+
 
 
 
