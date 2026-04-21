@@ -2,44 +2,44 @@
 {% block title %}Select a Character | Solo Leveling{% endblock %}
 
 {% block content %}
-<div class="container text-center my-5">
-  <h2 class="mb-4">Select a Character</h2>
+<div class="character-hero">
 
-  <div class="d-flex justify-content-center align-items-center mb-5">
-    <button class="btn btn-outline-dark me-3" onclick="prevCharacter()">&#10094;</button>
-
-    <div class="card shadow-lg" style="width: 22rem;" id="character-card">
-      <img id="char-img" src="" class="card-img-top" alt="Character Image" style="height: 300px; object-fit: cover;">
-      <div class="card-body">
-        <h5 class="card-title" id="char-name">Name</h5>
-        <h6 id="char-korean" class="text-muted"></h6>
-        <p class="card-text" id="char-title"></p>
-        <p class="card-text" id="char-desc"></p>
-        <span class="badge bg-primary" id="char-theme"></span>
-      </div>
-    </div>
-
-    <button class="btn btn-outline-dark ms-3" onclick="nextCharacter()">&#10095;</button>
+  <!-- LEFT TEXT -->
+  <div class="selector-info">
+    <h1 id="charselect-name"></h1>
+    <h4 id="charselect-korean"></h4>
+    <h5 id="charselect-title"></h5>
+    <p id="charselect-desc"></p>
   </div>
+
+  <!-- RIGHT IMAGE -->
+  <div class="character-visual">
+    <img id="char-img" src="" alt="Character portrait">
+  </div>
+
+  <!-- ARROWS -->
+  <button class="nav-btn left" onclick="prevCharacter()">‹</button>
+  <button class="nav-btn right" onclick="nextCharacter()">›</button>
+
 </div>
 {% endblock %}
 
 {% block script %}
 <script>
-  const characters = {{ characters | tojson | safe }};
+  const characters = JSON.parse('{{ characters | tojson | safe }}');
   const keys = Object.keys(characters);
   let currentIndex = keys.indexOf("sung-jin-woo");
+  if (currentIndex === -1) currentIndex = 0;
 
   function updateSlider() {
     const key = keys[currentIndex];
     const char = characters[key];
 
     document.getElementById('char-img').src = char.image;
-    document.getElementById('char-name').textContent = char.name;
-    document.getElementById('char-korean').textContent = char.korean || "";
-    document.getElementById('char-title').textContent = char.title;
-    document.getElementById('char-desc').textContent = char.description;
-    document.getElementById('char-theme').textContent = `Theme: ${char.theme}`;
+    document.getElementById('charselect-name').textContent = char.name;
+    document.getElementById('charselect-korean').textContent = char.korean || "";
+    document.getElementById('charselect-title').textContent = char.title;
+    document.getElementById('charselect-desc').textContent = char.description;
   }
 
   function prevCharacter() {
@@ -52,7 +52,39 @@
     updateSlider();
   }
 
-  window.onload = updateSlider;
+ function updateSlider() {
+  const info = document.querySelector(".selector-info");
+  const img = document.getElementById("char-img");
+
+  // fade out
+  info.classList.add("fade-out");
+  img.classList.add("fade-out");
+
+  setTimeout(() => {
+    const key = keys[currentIndex];
+    const char = characters[key];
+
+    // update content
+    img.src = char.image;
+    document.getElementById('charselect-name').textContent = char.name;
+    document.getElementById('charselect-korean').textContent = char.korean || "";
+    document.getElementById('charselect-title').textContent = char.title;
+    document.getElementById('charselect-desc').textContent = char.description || "";
+
+    // fade back in
+    info.classList.remove("fade-out");
+    img.classList.remove("fade-out");
+
+    info.classList.add("fade-in");
+    img.classList.add("fade-in");
+
+    setTimeout(() => {
+      info.classList.remove("fade-in");
+      img.classList.remove("fade-in");
+    }, 250);
+
+  }, 180);
+}
 </script>
 {% endblock %}
 

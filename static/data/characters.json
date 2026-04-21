@@ -4,7 +4,7 @@
     "korean": "(성진우)",
     "title": "Shadow Monarch A.K.A",
     "description": "Sung Jin-Woo is the main character of Solo Leveling. He starts as the weakest hunter but gains a unique ability to level up after surviving a deadly dungeon. With his new powers, he becomes the Shadow Monarch, commanding an army of shadows.",
-    "image": "/static/img/sung-jin-woo-main.png",
+    "image": "/static/img/sung-jin-woo.png",
     "theme": "jinwoo"
   },
   "cha-hae-in": {
@@ -12,7 +12,7 @@
     "korean": "(차해인)",
     "title": "Vice-Guild Master of Hunters",
     "description": "Cha Hae In is the Vice-Guild Master of the Hunters Guild. Known for her swordsmanship and strong sense of justice. Her sense of smell makes her wary of most people—except for Jin-Woo.",
-    "image": "/static/img/cha-hae-in-main.png",
+    "image": "/static/img/cha-hae-in.png",
     "theme": "haein"
   },
   "baek-yoon-ho": {

@@ -24,6 +24,8 @@
     --border-color-dark: #444444;
     --gradient-start-dark: #1b1d92;
     --gradient-end-dark: #000000;
+    --selector-gradient-start: #ffffff;
+    
 }
 
 .theme-haein {
@@ -35,6 +37,7 @@
     --border-color-dark: #dddddd;
     --gradient-start-dark: #7e6300;
     --gradient-end-dark:#ae9102;
+    --selector-gradient-start: #ffd52b;
 }
 
 /* Reset */
@@ -47,7 +50,8 @@
 html, body {
     height: 100%;
     width: 100%;
-    overflow: hidden;
+    overflow-x: hidden;
+    overflow-y: auto;
 }
 
 body {
@@ -62,12 +66,13 @@ body {
 
 /* App Container - Now only holds the content that should scroll/move */
 #app-container {
+    display : block;
+    flex-direction: column;
     position: relative;
     min-height: 100vh;
     width: 100vw;
     display: flex;
     flex-direction: column;
-    z-index: 1; /* Lowest z-index for the main content layer */
     padding-top: 150px; /* Adjust this value as needed based on header height */
 }
 
@@ -114,15 +119,14 @@ body {
     width: 100%;
     top: 0;
     left: 0;
-    z-index: 100; /* HIGHEST: To ensure clickability of header content and to "contain" the line */
+    z-index: 10; /* HIGHEST: To ensure clickability of header content and to "contain" the line */
 }
 
 /* Navigation - No specific changes needed here */
 #main-nav {
     display: flex;
     width: 100%;
-    position: relative;
-    z-index: 10; /* Ensures nav content is above the background line in the header */
+    position: relative;/* Ensures nav content is above the background line in the header */
     align-items: flex-start;
 }
 
@@ -194,7 +198,7 @@ body {
     position: relative;
     left: 38em;
     bottom: 2.6em;
-    z-index: 1;
+    z-index: -2;
 }
 
 .search-input {
@@ -205,6 +209,7 @@ body {
     font-size: 1rem;
     padding: 0.2em 0.5em;
     width: 300px;
+    z-index: 1;
 }
 
 .search-input::placeholder {
@@ -218,6 +223,7 @@ body {
     font-size: 1.2rem;
     cursor: pointer;
     padding: 0.2em 0.5em;
+    z-index: 1;
     transition: text-shadow 0.3s ease, color 0.3s ease;
 }
 
@@ -386,11 +392,14 @@ body {
     color: white;
     transform: translateX(100%);
     transition: transform 0.4s ease-in-out;
-    z-index: 10000;
+    z-index: 100000000;
+    isolation: isolate;
 }
 
 #about-container.open {
     transform: translateX(0%);
+    isolation: isolate;
+    z-index: 100000000; /* Ensure it's above all other content when open */
 }
 
 #about-toggle-tab {
@@ -405,13 +414,38 @@ body {
     writing-mode: vertical-rl;
     text-orientation: mixed;
     transform:rotate(270deg);
-    z-index: 10000; /* Ensure it's above other content */
+    isolation: isolate;
+    z-index: 100000000; /* Ensure it's above other content */
 }
 
 #about-toggle-tab i {
     display: inline-block;
     margin-left: 8px;
     transition: transform 0.3s ease;
+    isolation: isolate;
+    z-index: 100000000; /* Ensure it's above other content */
+}
+
+#about-panel {
+    position: fixed;
+    top: 0;
+    right: 0;
+    width: 300px;
+    height: 100vh;
+
+    background-color: var(--card-bg-dark);
+    color: white;
+
+    transform: translateX(100%);
+    transition: transform 0.4s ease-in-out;
+
+    z-index:  999999; /* yes this is fine */
+    isolation: isolate;
+}
+
+/* OPEN STATE */
+#about-panel.open {
+    transform: translateX(0);
 }
 
 #about-container.open #about-toggle-tab i {
@@ -422,6 +456,7 @@ body {
     padding: 20px;
     overflow-y: auto;
     height: 100%;
+    z-index: 100000000; /* Ensure it's above other content */
 }
 
 .about-item {
@@ -650,70 +685,161 @@ body {
     background-color: var(--card-bg-dark);
 }
 
-.character-slider-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    margin-top: 40px;
-}
+/* =========================
+   CHARACTER HERO LAYOUT
+========================= */
 
-.character-slider {
+.character-hero {
+    position: relative;
     display: flex;
     align-items: center;
-    gap: 20px;
+    justify-content: center; /* 🔥 FIX alignment */
+
+    padding: 60px 40px;
+    padding-bottom: 15cap;
+    padding-left: 10cap;
+    height: 85vh;
+
+    gap: 80px; /* control spacing instead of pushing off screen */
 }
 
-.character-card {
-    padding: 20px;
-    border: 2px solid #ccc;
-    border-radius: 10px;
-    text-align: center;
-    width: 220px;
-    transition: all 0.3s ease;
-    background-color: #1c1c1c;
+/* =========================
+   LEFT TEXT (SCOPED)
+========================= */
+
+.selector-info {
+    width: 40%;
+    min-width: 300px;
+    z-index: 2;
+}
+
+#charselect-name {
+    font-size: 3.2rem;
+    font-weight: 800;
     color: white;
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+    margin-bottom: 10px;
 }
 
-.character-card.selected {
-    border-color: #00ffe5;
-    transform: scale(1.1);
-    box-shadow: 0 6px 15px rgba(0, 255, 229, 0.7);
+#charselect-korean {
+    opacity: 0.7;
+    margin-bottom: 10px;
+    color: var(--text-color-dark);
 }
 
-.character-card img {
-    width: 180px;
-    height: auto;
-    border-radius: 8px;
+#charselect-title {
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: var(--text-color-dark);
 }
 
-.character-slider button {
-    font-size: 30px;
-    background: none;
+#charselect-desc {
+    line-height: 1.5;
+    opacity: 0.9;
+    color: var(--text-color-dark);
+}
+
+/* =========================
+   RIGHT IMAGE
+========================= */
+
+.character-visual {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 40%;
+}
+
+/* IMAGE WITH CLEAN GLOW */
+.character-visual img {
+    max-height: 420px;
+    width: auto;
+
+    background: var(--card-bg-dark);
+    padding: 18px;
+    border-radius: 14px;
+
+    border: 2px solid var(--selector-gradient-start);
+
+    box-shadow:
+        0 10px 30px rgba(0,0,0,0.5),
+        0 0 25px var(--selector-gradient-start);
+}
+
+/* =========================
+   NAV BUTTONS
+========================= */
+
+.nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    z-index: 10;
+
+    background: rgba(255,255,255,0.1);
     border: none;
-    color: white;
+    color: var(--text-color-dark);
+
+    font-size: 30px;
+    width: 50px;
+    height: 50px;
+
+    border-radius: 50%;
     cursor: pointer;
-    transition: transform 0.2s ease;
+
+    transition: all 0.2s ease;
 }
 
-.character-slider button:hover {
-    transform: scale(1.2);
+.nav-btn:hover {
+    background: var(--gradient-start-dark);
 }
 
-.char-title {
-  font-weight: bold;
-  font-size: 1.1rem;
-  margin-top: 5px;
+.nav-btn.left {
+    left: 20px;
 }
 
-.char-desc {
-  font-size: 0.95rem;
-  padding: 0 10px;
-  color: #ccc;
+.nav-btn.right {
+    right: 20px;
 }
 
+/* =========================
+   RESPONSIVE
+========================= */
 
+@media (max-width: 768px) {
+    .character-hero {
+        flex-direction: column;
+        text-align: center;
+        height: auto;
+        gap: 40px;
+    }
 
+    .selector-info,
+    .character-visual {
+        width: 100%;
+    }
+
+    .character-visual img {
+        max-height: 320px;
+    }
+}
+
+/* smooth base transition */
+.selector-info,
+.character-visual img {
+    transition: all 0.25s ease;
+}
+
+/* fade out */
+.fade-out {
+    opacity: 0;
+    transform: translateY(8px);
+}
+
+/* fade in */
+.fade-in {
+    opacity: 1;
+    transform: translateY(0);
+}
 
 
 

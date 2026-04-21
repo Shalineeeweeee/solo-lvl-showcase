@@ -5,10 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %}Solo Leveling Showcase{% endblock %}</title>
+    </script>
     <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
 </head>
-<body class="{{ theme_class or 'theme-jinwoo' }}">
+<body>
 
 
 <!-- Background Overlay -->
@@ -57,7 +58,6 @@
 <script>
     document.addEventListener("DOMContentLoaded", () => {
         const savedTheme = localStorage.getItem("selectedTheme") || "jinwoo";
-        document.body.classList.add(`theme-${savedTheme}`);
         const bgOverlay = document.getElementById("character-background-overlay");
         if (bgOverlay) {
             const style = getComputedStyle(document.body);
@@ -68,6 +68,33 @@
 </script>
 
 <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+
+{% block script %}
+
+{% endblock %}
+<div id="about-panel" class="about-panel">
+    <h2>About</h2>
+
+    <div class="about-section">
+        <h4>AFFILIATION</h4>
+        <p>Hunters Guild</p>
+
+        <h4>STATUS</h4>
+        <p>S-Rank Hunter with top-tier sword skills.</p>
+
+        <h4>RELATIONSHIPS</h4>
+        <p>Bond with Jin-Woo</p>
+
+        <h4>SKILLS</h4>
+        <p>Incredible swordsmanship</p>
+
+        <h4>TROOPS</h4>
+        <p>Operates solo</p>
+
+        <h4>WEAPONS</h4>
+        <p>Magical sword</p>
+    </div>
+</div>
 </body>
 </html>
 
